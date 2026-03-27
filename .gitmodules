@@ -21,3 +21,12 @@
 [submodule "references/Vulkan-Headers"]
 	path = references/Vulkan-Headers
 	url = https://github.com/KhronosGroup/Vulkan-Headers
+[submodule "references/shaderc"]
+	path = references/shaderc
+	url = https://github.com/google/shaderc
+[submodule "references/glslang"]
+	path = references/glslang
+	url = https://github.com/KhronosGroup/glslang
+[submodule "references/SPIRV-Tools"]
+	path = references/SPIRV-Tools
+	url = https://github.com/KhronosGroup/SPIRV-Tools
