@@ -14,11 +14,24 @@ if ! git rev-parse --git-path modules >/dev/null 2>&1; then
     exit 0
 fi
 
-git diff --cached --quiet -- references || {
+staged_reference_gitlinks=$(git diff --cached --raw --no-abbrev -- references | awk '
+    BEGIN { FS = "\t" }
+    /^:/ {
+        split($1, meta, " ")
+        old_mode = substr(meta[1], 2)
+        new_mode = meta[2]
+        if (old_mode == "160000" || new_mode == "160000") {
+            print $2
+        }
+    }
+')
+
+if [ -n "$staged_reference_gitlinks" ]; then
     printf '%s\n' 'ERROR: commits may not change gitlinks under references/.' >&2
+    printf '%s\n' "$staged_reference_gitlinks" >&2
     printf '%s\n' 'Revert the staged submodule update before committing.' >&2
     exit 1
-}
+fi
 
 dirty_submodules=''
 
