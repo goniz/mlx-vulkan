@@ -1,0 +1,8 @@
+[submodule "mlx"]
+	path = mlx
+	url = https://github.com/goniz/mlx
+	branch = feat/vulkan
+[submodule "references/llama.cpp"]
+	path = references/llama.cpp
+	url = https://github.com/ggml-org/llama.cpp
+	branch = master
