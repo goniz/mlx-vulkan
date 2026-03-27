@@ -6,3 +6,18 @@
 	path = references/llama.cpp
 	url = https://github.com/ggml-org/llama.cpp
 	branch = master
+[submodule "references/Vulkan-Samples"]
+	path = references/Vulkan-Samples
+	url = https://github.com/KhronosGroup/Vulkan-Samples
+[submodule "references/Vulkan-Docs"]
+	path = references/Vulkan-Docs
+	url = https://github.com/KhronosGroup/Vulkan-Docs
+[submodule "references/Vulkan-Hpp"]
+	path = references/Vulkan-Hpp
+	url = https://github.com/KhronosGroup/Vulkan-Hpp
+[submodule "references/Vulkan-Guide"]
+	path = references/Vulkan-Guide
+	url = https://github.com/KhronosGroup/Vulkan-Guide
+[submodule "references/Vulkan-Headers"]
+	path = references/Vulkan-Headers
+	url = https://github.com/KhronosGroup/Vulkan-Headers
