@@ -1,0 +1,18 @@
+Running warmup..
+Timing with prompt_tokens=4096, generation_tokens=128, batch_size=1.
+Trial 1:  prompt_tps=1469.957, generation_tps=8.603, peak_memory=1.906
+Trial 2:  prompt_tps=1442.931, generation_tps=8.602, peak_memory=1.906
+Trial 3:  prompt_tps=1444.688, generation_tps=8.667, peak_memory=1.906
+Trial 4:  prompt_tps=1443.844, generation_tps=8.604, peak_memory=1.907
+Trial 5:  prompt_tps=1479.503, generation_tps=8.559, peak_memory=1.907
+Averages: prompt_tps=1456.185, generation_tps=8.607, peak_memory=1.906
+
+Qwen3-0.6B-8bit
+Running warmup..
+Timing with prompt_tokens=4096, generation_tokens=128, batch_size=1.
+Trial 1:  prompt_tps=741.044, generation_tps=7.591, peak_memory=1.323
+Trial 2:  prompt_tps=757.085, generation_tps=7.668, peak_memory=1.323
+Trial 3:  prompt_tps=742.680, generation_tps=7.852, peak_memory=1.323
+Trial 4:  prompt_tps=755.766, generation_tps=7.828, peak_memory=1.323
+Trial 5:  prompt_tps=755.980, generation_tps=7.795, peak_memory=1.324
+Averages: prompt_tps=750.511, generation_tps=7.747, peak_memory=1.323
