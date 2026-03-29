@@ -39,3 +39,9 @@
 
 # debug information files
 *.dwo
+
+# Build directories
+build/
+wheelhouse/
+virtual-env/
+*.egg-info/
