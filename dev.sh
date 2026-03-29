@@ -44,12 +44,15 @@ cmd_init_venv() {
 
     SITE_PACKAGES=$(python -c "import site; print(site.getsitepackages()[0])")
     PTH_FILE="${SITE_PACKAGES}/mlx-dev.pth"
-    echo "$(pwd)/python" > "$PTH_FILE"
+    echo "$(pwd)/mlx/python" > "$PTH_FILE"
     echo "Created pth file: $PTH_FILE"
 
-    uv pip install --pre torch torchvision --index-url https://download.pytorch.org/whl/nightly/rocm7.2
     uv pip install mlx-lm mlx-vlm
+    # Uninstall the PyPI mlx package to avoid shadowing our local build
+    uv pip uninstall mlx -y
     uv pip install pytest
+    # Uncomment if you need PyTorch with ROCm support:
+    # uv pip install --pre torch torchvision --index-url https://download.pytorch.org/whl/nightly/rocm7.2
     echo "Virtual environment initialized successfully!"
 }
 
@@ -88,7 +91,7 @@ cmd_build() {
         mkdir -p "$BUILD_DIR"
         cmake -S mlx -B "$BUILD_DIR" $CMAKE_ARGS \
             -DMLX_BUILD_PYTHON_BINDINGS=ON \
-            -DMLX_PYTHON_BINDINGS_OUTPUT_DIRECTORY="$(pwd)/${BUILD_DIR}"
+            -DMLX_PYTHON_BINDINGS_OUTPUT_DIRECTORY="$(pwd)/mlx/python/mlx"
     fi
 
     echo "Building mlx Python extension..."
@@ -108,21 +111,9 @@ cmd_build() {
 
     echo "Found built extension: $BUILT_SO"
 
-    mkdir -p "python/mlx"
+    mkdir -p "mlx/python/mlx"
 
-    # Copy Python source files from mlx/python/mlx to python/mlx
-    if [ -d "mlx/python/mlx" ]; then
-        echo "Copying Python source files..."
-        cp -r mlx/python/mlx/* python/mlx/ 2>/dev/null || true
-    fi
-
-    cp -v "$BUILT_SO" "python/mlx/${SO_FILENAME}"
-
-    if [ -d "$BUILD_DIR/lib" ]; then
-        echo "Copying shared libraries..."
-        mkdir -p "python/mlx/lib"
-        cp -v "$BUILD_DIR/lib"/*.so* "python/mlx/lib/" 2>/dev/null || true
-    fi
+    cp -v "$BUILT_SO" "mlx/python/mlx/${SO_FILENAME}"
 
     if command -v ccache >/dev/null 2>&1; then
         echo ""
@@ -130,7 +121,7 @@ cmd_build() {
     fi
 
     echo ""
-    echo "Build complete! The extension is available at: python/mlx/${SO_FILENAME}"
+    echo "Build complete! The extension is available at: mlx/python/mlx/${SO_FILENAME}"
 }
 
 cmd_build_wheel() {
