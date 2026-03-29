@@ -11,6 +11,7 @@ set -euo pipefail
 #   build         Fast editable build for development
 #   build-wheel   Build wheel for distribution
 #   benchmark     Run Qwen3 benchmark (bf16 or 8bit)
+#   profile       Profile Qwen3 model inference with detailed tracing
 
 show_help() {
     cat << EOF
@@ -23,6 +24,7 @@ Commands:
   build             Fast editable build for development
   build-wheel       Build wheel for distribution
   benchmark [quant] Run Qwen3 benchmark (default: bf16, use "8bit" for quantized)
+  profile [model]   Profile Qwen3 model inference (0.6b or 2b, default: 0.6b)
 
 Examples:
   ./dev.sh init-venv
@@ -30,6 +32,8 @@ Examples:
   ./dev.sh build-wheel
   ./dev.sh benchmark        # Run with bf16
   ./dev.sh benchmark 8bit   # Run with 8-bit quantization
+  ./dev.sh profile          # Profile 0.6B model
+  ./dev.sh profile 2b       # Profile 2B model
 EOF
 }
 
@@ -177,6 +181,37 @@ cmd_benchmark() {
     mlx_lm.benchmark --model mlx-community/Qwen3-0.6B-$quant -p 4096 -g 128
 }
 
+cmd_profile() {
+    local model_size="${1:-0.6b}"
+    
+    case "$model_size" in
+        0.6b|0.6B)
+            MODEL="mlx-community/qwen3-0.6b-bf16"
+            ;;
+        2b|2B)
+            MODEL="mlx-community/Qwen3.5-2B-bf16"
+            ;;
+        *)
+            echo "Unknown model size: $model_size" >&2
+            echo "Supported sizes: 0.6b, 2b" >&2
+            exit 1
+            ;;
+    esac
+    
+    echo "Profiling Qwen3 model: $MODEL"
+    echo ""
+    echo "Environment variables you can set:"
+    echo "  MLX_VULKAN_PROFILE_MAX_TOKENS=N     Number of tokens to generate (default: 5)"
+    echo "  MLX_VULKAN_PROFILE_SYNC_CHECKPOINTS=1  Synchronize after checkpoints"
+    echo "  MLX_VULKAN_PROFILE_CAPTURE_SYNC_TRACE=0  Disable sync trace capture"
+    echo "  MLX_VULKAN_PROFILE_ECHO_SYNC_TRACE=1  Echo sync trace to stderr"
+    echo "  MLX_VULKAN_DEFERRED_SUBMISSION=0   Disable deferred submission"
+    echo ""
+    
+    source virtual-env/bin/activate
+    python scripts/profile_qwen3_vulkan.py --model "$MODEL"
+}
+
 # Main dispatch
 if [ $# -eq 0 ]; then
     show_help
@@ -198,6 +233,9 @@ case "$COMMAND" in
         ;;
     benchmark)
         cmd_benchmark "${1:-}"
+        ;;
+    profile)
+        cmd_profile "${1:-}"
         ;;
     help|--help|-h)
         show_help

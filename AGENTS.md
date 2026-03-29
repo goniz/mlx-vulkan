@@ -47,8 +47,7 @@ This branch adds Vulkan GPU support to MLX as a new backend.
 | `./dev.sh build` | Daily development, quick iterations | ~2-5 min | Updates `python/mlx/core*.so` |
 | `./dev.sh build-wheel` | Full build for distribution | ~10-15 min | Wheel in `wheelhouse/` |
 | `./dev.sh benchmark [quant]` | Run Qwen3 performance benchmark | ~1-2 min | Performance metrics (bf16 or 8bit) |
-
-CMake options: `-DMLX_BUILD_TESTS`, `-DMLX_BUILD_EXAMPLES`, `-DMLX_BUILD_METAL`, `-DMLX_BUILD_CUDA`, `-DMLX_BUILD_VULKAN`, `-DMLX_BUILD_CPU`, `-DMLX_USE_CCACHE=ON`
+| `./dev.sh profile [model]` | Profile Qwen3 inference (0.6b or 2b) | ~1-2 min | Detailed per-layer timing and fallback analysis |
 
 ## Test Commands
 
