@@ -1,18 +1,24 @@
 Running warmup..
 Timing with prompt_tokens=4096, generation_tokens=128, batch_size=1.
-Trial 1:  prompt_tps=1469.957, generation_tps=8.603, peak_memory=1.906
-Trial 2:  prompt_tps=1442.931, generation_tps=8.602, peak_memory=1.906
-Trial 3:  prompt_tps=1444.688, generation_tps=8.667, peak_memory=1.906
-Trial 4:  prompt_tps=1443.844, generation_tps=8.604, peak_memory=1.907
-Trial 5:  prompt_tps=1479.503, generation_tps=8.559, peak_memory=1.907
-Averages: prompt_tps=1456.185, generation_tps=8.607, peak_memory=1.906
+Trial 1:  prompt_tps=1206.349, generation_tps=6.747, peak_memory=1.922
+Trial 2:  prompt_tps=1198.943, generation_tps=6.768, peak_memory=1.923
+Trial 3:  prompt_tps=1211.164, generation_tps=6.758, peak_memory=1.923
+Trial 4:  prompt_tps=1203.302, generation_tps=6.745, peak_memory=1.923
+Trial 5:  prompt_tps=1212.547, generation_tps=6.753, peak_memory=1.924
+Averages: prompt_tps=1206.461, generation_tps=6.754, peak_memory=1.923
 
-Qwen3-0.6B-8bit
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]
+Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 194581.11it/s]
+
+
 Running warmup..
 Timing with prompt_tokens=4096, generation_tokens=128, batch_size=1.
-Trial 1:  prompt_tps=741.044, generation_tps=7.591, peak_memory=1.323
-Trial 2:  prompt_tps=757.085, generation_tps=7.668, peak_memory=1.323
-Trial 3:  prompt_tps=742.680, generation_tps=7.852, peak_memory=1.323
-Trial 4:  prompt_tps=755.766, generation_tps=7.828, peak_memory=1.323
-Trial 5:  prompt_tps=755.980, generation_tps=7.795, peak_memory=1.324
-Averages: prompt_tps=750.511, generation_tps=7.747, peak_memory=1.323
+Trial 1:  prompt_tps=710.273, generation_tps=6.487, peak_memory=1.360
+Trial 2:  prompt_tps=716.339, generation_tps=6.511, peak_memory=1.361
+Trial 3:  prompt_tps=718.923, generation_tps=6.414, peak_memory=1.361
+Trial 4:  prompt_tps=717.043, generation_tps=6.524, peak_memory=1.361
+Trial 5:  prompt_tps=718.678, generation_tps=6.450, peak_memory=1.361
+Averages: prompt_tps=716.251, generation_tps=6.477, peak_memory=1.361
+
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]
+Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 20132.66it/s]

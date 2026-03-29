@@ -24,6 +24,7 @@ Commands:
   build             Fast editable build for development
   build-wheel       Build wheel for distribution
   benchmark [quant] Run Qwen3 benchmark (default: bf16, use "8bit" for quantized)
+  update-benchmark  Run benchmarks and update baseline file with comparison
   profile [model]   Profile Qwen3 model inference (0.6b or 2b, default: 0.6b)
 
 Examples:
@@ -32,6 +33,7 @@ Examples:
   ./dev.sh build-wheel
   ./dev.sh benchmark        # Run with bf16
   ./dev.sh benchmark 8bit   # Run with 8-bit quantization
+  ./dev.sh update-benchmark # Update baseline with current performance
   ./dev.sh profile          # Profile 0.6B model
   ./dev.sh profile 2b       # Profile 2B model
 EOF
@@ -172,6 +174,11 @@ cmd_benchmark() {
     mlx_lm.benchmark --model mlx-community/Qwen3-0.6B-$quant -p 4096 -g 128
 }
 
+cmd_update_benchmark() {
+    source virtual-env/bin/activate
+    python scripts/update_benchmark.py
+}
+
 cmd_profile() {
     local model_size="${1:-0.6b}"
     
@@ -224,6 +231,9 @@ case "$COMMAND" in
         ;;
     benchmark)
         cmd_benchmark "${1:-}"
+        ;;
+    update-benchmark)
+        cmd_update_benchmark
         ;;
     profile)
         cmd_profile "${1:-}"
