@@ -21,15 +21,18 @@ Usage: ./dev.sh <command> [options]
 
 Commands:
   init-venv         Create and setup virtual environment
+  run <cmd>         Run a command inside the virtual environment
   build             Fast editable build for development
   build-wheel       Build wheel for distribution
   benchmark [quant] Run Qwen3 benchmark (default: bf16, use "8bit" for quantized)
   update-benchmark  Run benchmarks and update baseline file with comparison
-  profile [model]   Profile Qwen3 model inference (0.6b or 2b, default: 0.6b)
+  run <cmd> [args]  Run a command inside the virtual environment
 
 Examples:
   ./dev.sh init-venv
   ./dev.sh build
+  ./dev.sh run python3 --version
+  ./dev.sh run python3 scripts/my_script.py
   ./dev.sh build-wheel
   ./dev.sh benchmark        # Run with bf16
   ./dev.sh benchmark 8bit   # Run with 8-bit quantization
@@ -162,6 +165,18 @@ cmd_build_wheel() {
     echo "Wheel built successfully! Check wheelhouse/ directory"
 }
 
+cmd_run() {
+    if [ $# -eq 0 ]; then
+        echo "Error: No command specified for 'run'
+Usage: ./dev.sh run <command> [args...]
+Example: ./dev.sh run python3 --version" >&2
+        exit 1
+    fi
+
+    source virtual-env/bin/activate
+    exec "$@"
+}
+
 cmd_benchmark() {
     local quant="${1:-bf16}"
     
@@ -228,6 +243,9 @@ case "$COMMAND" in
         ;;
     build-wheel)
         cmd_build_wheel
+        ;;
+    run)
+        cmd_run "$@"
         ;;
     benchmark)
         cmd_benchmark "${1:-}"

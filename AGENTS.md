@@ -32,6 +32,10 @@ This branch adds Vulkan GPU support to MLX as a new backend.
 
 # Build wheel for distribution
 ./dev.sh build-wheel
+
+# Run command inside the virtual environment
+./dev.sh run python3 --version
+./dev.sh run pytest python/tests/
 ```
 
 **What it does:**
@@ -46,6 +50,7 @@ This branch adds Vulkan GPU support to MLX as a new backend.
 | `./dev.sh init-venv` | First time setup, creates venv | ~1-2 min | `./virtual-env/` with dependencies |
 | `./dev.sh build` | Daily development, quick iterations | ~2-5 min | Updates `python/mlx/core*.so` |
 | `./dev.sh build-wheel` | Full build for distribution | ~10-15 min | Wheel in `wheelhouse/` |
+| `./dev.sh run <cmd>` | Run command inside venv | varies | Executes command in virtual-env |
 | `./dev.sh benchmark [quant]` | Run Qwen3 performance benchmark | ~1-2 min | Performance metrics (bf16 or 8bit) |
 | `./dev.sh profile [model]` | Profile Qwen3 inference (0.6b or 2b) | ~1-2 min | Detailed per-layer timing and fallback analysis |
 
