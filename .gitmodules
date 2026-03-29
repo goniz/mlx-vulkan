@@ -30,3 +30,6 @@
 [submodule "references/SPIRV-Tools"]
 	path = references/SPIRV-Tools
 	url = https://github.com/KhronosGroup/SPIRV-Tools
+[submodule "references/zinc"]
+	path = references/zinc
+	url = https://github.com/zolotukhin/zinc.git
