@@ -188,6 +188,7 @@ tests/             # C++ unit tests
 - Check both CPU and GPU backends when applicable
 - For Vulkan work: reference Metal backend (`mlx/backend/metal/`) for compute patterns and CUDA backend (`mlx/backend/cuda/`) for structure
 - For Vulkan Reference implementation read ./llama.cpp/ggml/src/ggml-vulkan/
+- **Use `references/` directory** to learn about dependencies and technologies used in this project
 - ALWAYS check for existing shaders in ./mlx/backend/vulkan/kernels/ before introducing new onces
 - Shaders should be compiled automatically by CMake; check build output if shaders fail
 - NEVER edit source files outside of mlx/backends/vulkan !! (test files are allowed)
