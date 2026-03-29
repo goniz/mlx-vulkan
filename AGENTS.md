@@ -46,6 +46,7 @@ This branch adds Vulkan GPU support to MLX as a new backend.
 | `./dev.sh init-venv` | First time setup, creates venv | ~1-2 min | `./virtual-env/` with dependencies |
 | `./dev.sh build` | Daily development, quick iterations | ~2-5 min | Updates `python/mlx/core*.so` |
 | `./dev.sh build-wheel` | Full build for distribution | ~10-15 min | Wheel in `wheelhouse/` |
+| `./dev.sh benchmark [quant]` | Run Qwen3 performance benchmark | ~1-2 min | Performance metrics (bf16 or 8bit) |
 
 CMake options: `-DMLX_BUILD_TESTS`, `-DMLX_BUILD_EXAMPLES`, `-DMLX_BUILD_METAL`, `-DMLX_BUILD_CUDA`, `-DMLX_BUILD_VULKAN`, `-DMLX_BUILD_CPU`, `-DMLX_USE_CCACHE=ON`
 
@@ -193,4 +194,4 @@ tests/             # C++ unit tests
 - NEVER edit source files outside of mlx/backends/vulkan !! (test files are allowed)
 
 ## Github instructions
-- Every PR that you create, should contain the results of qwen3 benchmark by running it @benchmark_qwen3.sh against bf16 anf 8bit quants. either as pr desc or as comment 
+- Every PR that you create, should contain the results of qwen3 benchmark by running it `./dev.sh benchmark [bf16|8bit]` against bf16 and 8bit quants, either as pr desc or as comment 

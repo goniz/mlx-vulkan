@@ -10,6 +10,7 @@ set -euo pipefail
 #   init-venv     Create and setup virtual environment (uv-based)
 #   build         Fast editable build for development
 #   build-wheel   Build wheel for distribution
+#   benchmark     Run Qwen3 benchmark (bf16 or 8bit)
 
 show_help() {
     cat << EOF
@@ -21,11 +22,14 @@ Commands:
   init-venv         Create and setup virtual environment
   build             Fast editable build for development
   build-wheel       Build wheel for distribution
+  benchmark [quant] Run Qwen3 benchmark (default: bf16, use "8bit" for quantized)
 
 Examples:
   ./dev.sh init-venv
   ./dev.sh build
   ./dev.sh build-wheel
+  ./dev.sh benchmark        # Run with bf16
+  ./dev.sh benchmark 8bit   # Run with 8-bit quantization
 EOF
 }
 
@@ -161,6 +165,18 @@ cmd_build_wheel() {
     echo "Wheel built successfully! Check wheelhouse/ directory"
 }
 
+cmd_benchmark() {
+    local quant="${1:-bf16}"
+    
+    echo "Running Qwen3 benchmark with quantization: $quant"
+    
+    # Disable OpenMPI ROCm accelerator to prevent segfault on exit
+    export OMPI_MCA_accelerator=^rocm
+    
+    source virtual-env/bin/activate
+    mlx_lm.benchmark --model mlx-community/Qwen3-0.6B-$quant -p 4096 -g 128
+}
+
 # Main dispatch
 if [ $# -eq 0 ]; then
     show_help
@@ -179,6 +195,9 @@ case "$COMMAND" in
         ;;
     build-wheel)
         cmd_build_wheel
+        ;;
+    benchmark)
+        cmd_benchmark "${1:-}"
         ;;
     help|--help|-h)
         show_help
