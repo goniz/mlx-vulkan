@@ -188,6 +188,7 @@ tests/             # C++ unit tests
 ## Notes for Agents
 
 - **Always use `./dev.sh` for code-build-test cycles** - don't run cmake or pip install directly
+- **NEVER run build and test commands in parallel** - tests depend on builds completing first
 - **Use the `question` tool** to ask the user questions during execution (for preferences, requirements, clarifications, or implementation decisions)
 - Run tests after making changes
 - Format code before committing
