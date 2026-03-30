@@ -53,6 +53,7 @@ This branch adds Vulkan GPU support to MLX as a new backend.
 | `./dev.sh run <cmd>` | Run command inside venv | varies | Executes command in virtual-env |
 | `./dev.sh benchmark [quant]` | Run Qwen3 performance benchmark | ~1-2 min | Performance metrics (bf16 or 8bit) |
 | `./dev.sh profile [model]` | Profile Qwen3 inference (0.6b or 2b) | ~1-2 min | Detailed per-layer timing and fallback analysis |
+| `./dev.sh pr-comments` | Fetch unresolved PR review comments | ~1s | Active comments from current PR |
 
 ## Test Commands
 
@@ -194,6 +195,7 @@ tests/             # C++ unit tests
 - For Vulkan work: reference Metal backend (`mlx/backend/metal/`) for compute patterns and CUDA backend (`mlx/backend/cuda/`) for structure
 - For Vulkan Reference implementation read ./llama.cpp/ggml/src/ggml-vulkan/
 - **Use `references/` directory** to learn about dependencies and technologies used in this project
+- Prefer throwing `NYI`/not-yet-implemented errors instead of falling back to CPU implementations when Vulkan support is missing
 - ALWAYS check for existing shaders in ./mlx/backend/vulkan/kernels/ before introducing new onces
 - Shaders should be compiled automatically by CMake; check build output if shaders fail
 - NEVER edit source files outside of mlx/backends/vulkan !! (test files are allowed)
