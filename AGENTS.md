@@ -36,6 +36,9 @@ This branch adds Vulkan GPU support to MLX as a new backend.
 # Run command inside the virtual environment
 ./dev.sh run python3 --version
 ./dev.sh run pytest python/tests/
+
+# Fetch PR comments (use --submodule mlx for PRs in the mlx submodule)
+./dev.sh pr-comments --submodule mlx
 ```
 
 **What it does:**
@@ -53,7 +56,7 @@ This branch adds Vulkan GPU support to MLX as a new backend.
 | `./dev.sh run <cmd>` | Run command inside venv | varies | Executes command in virtual-env |
 | `./dev.sh benchmark [quant]` | Run Qwen3 performance benchmark | ~1-2 min | Performance metrics (bf16 or 8bit) |
 | `./dev.sh profile [model]` | Profile Qwen3 inference (0.6b or 2b) | ~1-2 min | Detailed per-layer timing and fallback analysis |
-| `./dev.sh pr-comments` | Fetch unresolved PR review comments | ~1s | Active comments from current PR |
+| `./dev.sh pr-comments [args]` | Fetch unresolved PR review comments | ~1s | Active comments from current PR (use `--submodule mlx` for submodule PRs) |
 
 ## Test Commands
 
