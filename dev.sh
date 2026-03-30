@@ -65,6 +65,7 @@ cmd_build() {
     echo "Running editable build..."
 
     BUILD_DIR="build"
+    PYTHON_BINDINGS_DIR="$(pwd)/mlx/python/mlx"
 
     source virtual-env/bin/activate
 
@@ -96,19 +97,21 @@ cmd_build() {
         mkdir -p "$BUILD_DIR"
         cmake -S mlx -B "$BUILD_DIR" $CMAKE_ARGS \
             -DMLX_BUILD_PYTHON_BINDINGS=ON \
-            -DMLX_PYTHON_BINDINGS_OUTPUT_DIRECTORY="$(pwd)/mlx/python/mlx"
+            -DMLX_PYTHON_BINDINGS_OUTPUT_DIRECTORY="$PYTHON_BINDINGS_DIR"
     fi
 
     echo "Building mlx Python extension..."
     cmake --build "$BUILD_DIR" --target core -j$(nproc)
 
-    BUILT_SO="${BUILD_DIR}/${SO_FILENAME}"
+    BUILT_SO="${PYTHON_BINDINGS_DIR}/${SO_FILENAME}"
 
     if [ ! -f "$BUILT_SO" ]; then
-        BUILT_SO=$(find "$BUILD_DIR" -maxdepth 1 -name "core.cpython*.so" -type f | head -1)
+        BUILT_SO=$(find "$PYTHON_BINDINGS_DIR" "$BUILD_DIR" -maxdepth 1 -name "core.cpython*.so" -type f | head -1)
         if [ -z "$BUILT_SO" ]; then
-            echo "Error: Could not find built .so file in $BUILD_DIR"
+            echo "Error: Could not find built .so file"
             echo "Looking for: ${SO_FILENAME}"
+            echo "Checked: $PYTHON_BINDINGS_DIR and $BUILD_DIR"
+            ls -la "$PYTHON_BINDINGS_DIR"
             ls -la "$BUILD_DIR/"
             exit 1
         fi
@@ -116,9 +119,11 @@ cmd_build() {
 
     echo "Found built extension: $BUILT_SO"
 
-    mkdir -p "mlx/python/mlx"
+    mkdir -p "$PYTHON_BINDINGS_DIR"
 
-    cp -v "$BUILT_SO" "mlx/python/mlx/${SO_FILENAME}"
+    if [ "$BUILT_SO" != "$PYTHON_BINDINGS_DIR/${SO_FILENAME}" ]; then
+        cp -v "$BUILT_SO" "$PYTHON_BINDINGS_DIR/${SO_FILENAME}"
+    fi
 
     if command -v ccache >/dev/null 2>&1; then
         echo ""
@@ -126,7 +131,7 @@ cmd_build() {
     fi
 
     echo ""
-    echo "Build complete! The extension is available at: mlx/python/mlx/${SO_FILENAME}"
+    echo "Build complete! The extension is available at: $PYTHON_BINDINGS_DIR/${SO_FILENAME}"
 }
 
 cmd_build_wheel() {
