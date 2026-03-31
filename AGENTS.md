@@ -204,6 +204,7 @@ tests/             # C++ unit tests
 - ALWAYS check for existing shaders in ./mlx/backend/vulkan/kernels/ before introducing new onces
 - Shaders should be compiled automatically by CMake; check build output if shaders fail
 - NEVER edit source files outside of mlx/backends/vulkan !! (test files are allowed)
+- **When running `scripts/profile_qwen3_vulkan.py` with sync trace enabled (`MLX_VULKAN_TRACE_SYNC=1` or `--no-capture-sync-trace`), use short timeouts** - the script can hang with sync traces, so wrap invocations with a timeout (e.g., `timeout 30s ./dev.sh profile`)
 
 ## Github instructions
 - Every PR that you create, should contain the results of qwen3 benchmark by running it `./dev.sh benchmark [bf16|8bit]` against bf16 and 8bit quants, either as pr desc or as comment 
