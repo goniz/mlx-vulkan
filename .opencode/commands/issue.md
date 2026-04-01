@@ -6,6 +6,7 @@ Read the GitHub issue number $ARGUMENTS from the goniz/mlx-vulkan repository usi
 
 After reading the issue:
 1. Create a todo list to plan the work needed to address the issue
+2. Create a feature branch in the mlx submodule which tracks goniz/mlx:feat/vulkan
 2. If the issue describes a bug, try to reproduce it before implementing a fix
 3. Execute the work items
 Make sure to update the todo list as you complete items.
