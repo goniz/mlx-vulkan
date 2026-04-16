@@ -1,0 +1,48 @@
+name: Vulkan Build and Benchmark
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-and-benchmark:
+    runs-on: [strix-halo, vulkan]
+    steps:
+      - name: Checkout repository with submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          version: "latest"
+
+      - name: Initialize virtual environment
+        run: ./dev.sh init-venv
+
+      - name: Build the code
+        run: ./dev.sh build
+
+      - name: Run generate validation
+        run: ./dev.sh generate --prompt "Hello, how are you?" --max-tokens 10
+
+      - name: Run benchmarks and update README
+        run: ./dev.sh update-benchmark
+
+      - name: Commit benchmark results
+        if: github.event_name != 'pull_request'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add README.md
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update Qwen3 benchmark results in README.md [skip ci]"
+            git push
+          fi
