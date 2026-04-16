@@ -195,6 +195,7 @@ tests/             # C++ unit tests
 - **NEVER run build and test commands in parallel** - tests depend on builds completing first
 - **Use the `question` tool** to ask the user questions during execution (for preferences, requirements, clarifications, or implementation decisions)
 - Run tests after making changes
+- **Run `./dev.sh generate` after making changes to validate output coherence** - some bugs may cause the model to output garbage or incoherent text without crashing
 - Format code before committing
 - Follow existing patterns in the codebase
 - Check both CPU and GPU backends when applicable
