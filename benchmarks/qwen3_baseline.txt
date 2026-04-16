@@ -1,24 +1,4 @@
 Running warmup..
 Timing with prompt_tokens=4096, generation_tokens=128, batch_size=1.
-Trial 1:  prompt_tps=1309.802, generation_tps=7.301, peak_memory=1.922
-Trial 2:  prompt_tps=1322.664, generation_tps=7.540, peak_memory=1.923
-Trial 3:  prompt_tps=1319.247, generation_tps=7.272, peak_memory=1.923
-Trial 4:  prompt_tps=1317.268, generation_tps=7.302, peak_memory=1.923
-Trial 5:  prompt_tps=1313.487, generation_tps=7.368, peak_memory=1.924
-Averages: prompt_tps=1316.494, generation_tps=7.357, peak_memory=1.923
-
-Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]
-Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 45923.04it/s]
-
-
-Running warmup..
-Timing with prompt_tokens=4096, generation_tokens=128, batch_size=1.
-Trial 1:  prompt_tps=756.183, generation_tps=6.879, peak_memory=1.360
-Trial 2:  prompt_tps=761.773, generation_tps=7.236, peak_memory=1.361
-Trial 3:  prompt_tps=801.369, generation_tps=7.688, peak_memory=1.361
-Trial 4:  prompt_tps=803.994, generation_tps=7.577, peak_memory=1.361
-Trial 5:  prompt_tps=810.561, generation_tps=7.487, peak_memory=1.361
-Averages: prompt_tps=786.776, generation_tps=7.373, peak_memory=1.361
-
-Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]
-Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 39861.39it/s]
+Trial 1:  prompt_tps=1473.762, generation_tps=11.169, peak_memory=2.062
+Averages: prompt_tps=1473.762, generation_tps=11.169, peak_memory=2.062
