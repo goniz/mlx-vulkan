@@ -12,6 +12,7 @@ set -euo pipefail
 #   build-wheel   Build wheel for distribution
 #   benchmark     Run Qwen3 benchmark (bf16 or 8bit)
 #   profile       Profile Qwen3 model inference with detailed tracing
+#   generate      Run mlx_lm.generate with Qwen3-0.6B-bf16
 
 show_help() {
     cat << EOF
@@ -21,13 +22,13 @@ Usage: ./dev.sh <command> [options]
 
 Commands:
   init-venv         Create and setup virtual environment
-  run <cmd>         Run a command inside the virtual environment
   build             Fast editable build for development
   build-wheel       Build wheel for distribution
   benchmark [quant] Run Qwen3 benchmark (default: bf16, use "8bit" for quantized)
   update-benchmark  Run benchmarks and update baseline file with comparison
   pr-comments       Fetch non-resolved PR review comments
   run <cmd> [args]  Run a command inside the virtual environment
+  generate [args]   Run mlx_lm.generate with Qwen3-0.6B-bf16
 
 Examples:
   ./dev.sh init-venv
@@ -41,6 +42,8 @@ Examples:
   ./dev.sh profile          # Profile 0.6B model
   ./dev.sh profile 2b       # Profile 2B model
   ./dev.sh pr-comments      # Fetch PR review comments for current branch
+  ./dev.sh generate         # Run text generation
+  ./dev.sh generate --prompt "Hello, how are you?"
 EOF
 }
 
@@ -237,6 +240,16 @@ cmd_profile() {
     python scripts/profile_qwen3_vulkan.py --model "$MODEL"
 }
 
+cmd_generate() {
+    echo "Running mlx_lm.generate with mlx-community/Qwen3-0.6B-bf16..."
+    
+    # Disable OpenMPI ROCm accelerator to prevent segfault on exit
+    export OMPI_MCA_accelerator=^rocm
+    
+    source virtual-env/bin/activate
+    mlx_lm.generate --model mlx-community/Qwen3-0.6B-bf16 "$@"
+}
+
 # Main dispatch
 if [ $# -eq 0 ]; then
     show_help
@@ -270,6 +283,10 @@ case "$COMMAND" in
         ;;
     profile)
         cmd_profile "${1:-}"
+        ;;
+    generate)
+        shift
+        cmd_generate "$@"
         ;;
     help|--help|-h)
         show_help
