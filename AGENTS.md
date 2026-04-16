@@ -208,3 +208,6 @@ tests/             # C++ unit tests
 
 ## Github instructions
 - Every PR that you create, should contain the results of qwen3 benchmark by running it `./dev.sh benchmark [bf16|8bit]` against bf16 and 8bit quants, either as pr desc or as comment 
+
+## Other
+if you encounter issues during work that are out of scope- spawn a subagent that will create a github issue on goniz/mlx-vulkan for later fix
