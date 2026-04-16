@@ -285,7 +285,6 @@ case "$COMMAND" in
         cmd_profile "${1:-}"
         ;;
     generate)
-        shift
         cmd_generate "$@"
         ;;
     help|--help|-h)
