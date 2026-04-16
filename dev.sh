@@ -59,7 +59,7 @@ cmd_init_venv() {
 
     uv pip install mlx-lm mlx-vlm
     # Uninstall the PyPI mlx package to avoid shadowing our local build
-    uv pip uninstall mlx -y
+    uv pip uninstall mlx 
     uv pip install pytest
     # Uncomment if you need PyTorch with ROCm support:
     # uv pip install --pre torch torchvision --index-url https://download.pytorch.org/whl/nightly/rocm7.2
