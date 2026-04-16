@@ -11,11 +11,15 @@ jobs:
   build-and-benchmark:
     runs-on: [strix-halo, vulkan]
     steps:
-      - name: Checkout repository with submodules
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          submodules: recursive
           fetch-depth: 0
+
+      - name: Initialize mlx submodule only
+        run: |
+          git submodule init mlx
+          git submodule update mlx
 
       - name: Setup uv
         uses: astral-sh/setup-uv@v5
