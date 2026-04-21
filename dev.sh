@@ -10,7 +10,7 @@ set -euo pipefail
 #   init-venv     Create and setup virtual environment (uv-based)
 #   build         Fast editable build for development
 #   build-wheel   Build wheel for distribution
-#   benchmark     Run Qwen3 benchmark (bf16 or 8bit)
+#   benchmark     Run benchmark with optional model override
 #   profile       Profile Qwen3 model inference with detailed tracing
 #   generate      Run mlx_lm.generate with Qwen3-0.6B-bf16
 
@@ -24,7 +24,8 @@ Commands:
   init-venv         Create and setup virtual environment
   build             Fast editable build for development
   build-wheel       Build wheel for distribution
-  benchmark [quant] Run Qwen3 benchmark (default: bf16, use "8bit" for quantized)
+  benchmark [quant] [--model MODEL]
+                    Run benchmark (default model: Qwen3-0.6B)
   update-benchmark  Run benchmarks and update baseline file with comparison
   pr-comments       Fetch non-resolved PR review comments
   run <cmd> [args]  Run a command inside the virtual environment
@@ -36,8 +37,9 @@ Examples:
   ./dev.sh run python3 --version
   ./dev.sh run python3 scripts/my_script.py
   ./dev.sh build-wheel
-  ./dev.sh benchmark        # Run with bf16
-  ./dev.sh benchmark 8bit   # Run with 8-bit quantization
+  ./dev.sh benchmark                              # Run Qwen3 with bf16
+  ./dev.sh benchmark 8bit                         # Run Qwen3 with 8-bit quantization
+  ./dev.sh benchmark --model mlx-community/gemma-4-e2b-bf16
   ./dev.sh update-benchmark # Update baseline with current performance
   ./dev.sh profile          # Profile 0.6B model
   ./dev.sh profile 2b       # Profile 2B model
@@ -188,15 +190,37 @@ Example: ./dev.sh run python3 --version" >&2
 }
 
 cmd_benchmark() {
-    local quant="${1:-bf16}"
-    
-    echo "Running Qwen3 benchmark with quantization: $quant"
-    
+    local quant="bf16"
+    local model=""
+
+    while [ $# -gt 0 ]; do
+        case "$1" in
+            --model)
+                if [ $# -lt 2 ]; then
+                    echo "Error: --model requires a value" >&2
+                    exit 1
+                fi
+                model="$2"
+                shift 2
+                ;;
+            *)
+                quant="$1"
+                shift
+                ;;
+        esac
+    done
+
+    if [ -z "$model" ]; then
+        model="mlx-community/Qwen3-0.6B-$quant"
+    fi
+
+    echo "Running benchmark for model: $model"
+
     # Disable OpenMPI ROCm accelerator to prevent segfault on exit
     export OMPI_MCA_accelerator=^rocm
-    
+
     source virtual-env/bin/activate
-    mlx_lm.benchmark --model mlx-community/Qwen3-0.6B-$quant -p 4096 -g 128
+    mlx_lm.benchmark --model "$model" -p 4096 -g 128
 }
 
 cmd_update_benchmark() {
@@ -273,7 +297,7 @@ case "$COMMAND" in
         cmd_run "$@"
         ;;
     benchmark)
-        cmd_benchmark "${1:-}"
+        cmd_benchmark "$@"
         ;;
     update-benchmark)
         cmd_update_benchmark

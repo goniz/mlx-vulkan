@@ -54,7 +54,7 @@ This branch adds Vulkan GPU support to MLX as a new backend.
 | `./dev.sh build` | Daily development, quick iterations | ~2-5 min | Updates `python/mlx/core*.so` |
 | `./dev.sh build-wheel` | Full build for distribution | ~10-15 min | Wheel in `wheelhouse/` |
 | `./dev.sh run <cmd>` | Run command inside venv | varies | Executes command in virtual-env |
-| `./dev.sh benchmark [quant]` | Run Qwen3 performance benchmark | ~1-2 min | Performance metrics (bf16 or 8bit) |
+| `./dev.sh benchmark [quant] [--model MODEL]` | Run benchmark with optional model override | ~1-2 min | Performance metrics for the selected model |
 | `./dev.sh profile [model]` | Profile Qwen3 inference (0.6b or 2b) | ~1-2 min | Detailed per-layer timing and fallback analysis |
 | `./dev.sh pr-comments [args]` | Fetch unresolved PR review comments | ~1s | Active comments from current PR (use `--submodule mlx` for submodule PRs) |
 | `./dev.sh generate [args]` | Run mlx_lm.generate with Qwen3-0.6B-bf16 | varies | Text generation output |
@@ -209,7 +209,8 @@ tests/             # C++ unit tests
 - **When running `scripts/profile_qwen3_vulkan.py` with sync trace enabled (`MLX_VULKAN_TRACE_SYNC=1` or `--no-capture-sync-trace`), use short timeouts** - the script can hang with sync traces, so wrap invocations with a timeout (e.g., `timeout 30s ./dev.sh profile`)
 
 ## Github instructions
-- Every PR that you create, should contain the results of qwen3 benchmark by running it `./dev.sh benchmark [bf16|8bit]` against bf16 and 8bit quants, either as pr desc or as comment 
+- Every PR that you create, should contain the results of qwen3 benchmark by running `./dev.sh benchmark [bf16|8bit]` against bf16 and 8bit quants, either as pr desc or as comment
+- Use `./dev.sh benchmark --model <huggingface-model>` to benchmark a different model such as Gemma
 
 ## Other
 if you encounter issues during work that are out of scope- spawn a subagent that will create a github issue on goniz/mlx-vulkan for later fix
