@@ -58,6 +58,7 @@ This branch adds Vulkan GPU support to MLX as a new backend.
 | `./dev.sh profile [model]` | Profile Qwen3 inference (0.6b or 2b) | ~1-2 min | Detailed per-layer timing and fallback analysis |
 | `./dev.sh pr-comments [args]` | Fetch unresolved PR review comments | ~1s | Active comments from current PR (use `--submodule mlx` for submodule PRs) |
 | `./dev.sh generate [args]` | Run mlx_lm.generate with Qwen3-0.6B-bf16 | varies | Text generation output |
+| `./scripts/gdb.sh [PID]` | Attach gdb to a running process for backtraces | ~5s | Thread backtraces for debugging hangs |
 
 ## Test Commands
 
