@@ -78,6 +78,10 @@ class FallbackAnalyzer:
     def __init__(self):
         self.fallback_counts: Dict[str, int] = defaultdict(int)
         self.fallback_patterns = {
+            "ArgPartition": re.compile(r"primitive=ArgPartition"),
+            "ArgSort": re.compile(r"primitive=ArgSort"),
+            "GatherQMM": re.compile(r"primitive=GatherQMM"),
+            "QuantizedMatmul": re.compile(r"primitive=QuantizedMatmul"),
             "RMSNorm": re.compile(r"primitive=RMSNorm"),
             "ScaledDotProductAttention": re.compile(
                 r"primitive=ScaledDotProductAttention[^V]"
@@ -87,8 +91,11 @@ class FallbackAnalyzer:
             ),
             "Softmax": re.compile(r"primitive=.*Softmax"),
             "Gather": re.compile(r"primitive=Gather"),
+            "Scatter": re.compile(r"primitive=Scatter"),
             "RoPE": re.compile(r"primitive=RoPE"),
         }
+        self.copy_fallback_count = 0
+        self.copy_dispatch_count = 0
 
     def analyze_stderr(self, stderr_text: str):
         """Parse stderr output and count fallbacks."""
@@ -97,6 +104,10 @@ class FallbackAnalyzer:
 
     def consume_line(self, line: str):
         if "[vulkan-fallback]" not in line:
+            if "[vulkan-copy-fallback]" in line:
+                self.copy_fallback_count += 1
+            elif "[vulkan-copy-dispatch]" in line:
+                self.copy_dispatch_count += 1
             return
         for op_name, pattern in self.fallback_patterns.items():
             if pattern.search(line):
@@ -130,6 +141,12 @@ class FallbackAnalyzer:
             total = sum(self.fallback_counts.values())
             lines.append("-" * 100)
             lines.append(f"{'TOTAL FALLBACKS':<50} {total:<20}")
+
+        if self.copy_fallback_count or self.copy_dispatch_count:
+            lines.append("-" * 100)
+            lines.append("Copy tracing:")
+            lines.append(f"{'copy fallbacks':<50} {self.copy_fallback_count:<20}")
+            lines.append(f"{'copy dispatches':<50} {self.copy_dispatch_count:<20}")
 
         lines.append("=" * 100)
         return "\n".join(lines)
@@ -851,6 +868,14 @@ def main():
         print(f"MLX_VULKAN_SUBMIT_ON_HAZARD: {os.environ['MLX_VULKAN_SUBMIT_ON_HAZARD']}")
     if os.environ.get("MLX_VULKAN_TRACE_FALLBACKS"):
         print(f"MLX_VULKAN_TRACE_FALLBACKS: {os.environ['MLX_VULKAN_TRACE_FALLBACKS']}")
+    if os.environ.get("MLX_VULKAN_TRACE_COPY_FALLBACK"):
+        print(
+            f"MLX_VULKAN_TRACE_COPY_FALLBACK: {os.environ['MLX_VULKAN_TRACE_COPY_FALLBACK']}"
+        )
+    if os.environ.get("MLX_VULKAN_TRACE_COPY_DISPATCH"):
+        print(
+            f"MLX_VULKAN_TRACE_COPY_DISPATCH: {os.environ['MLX_VULKAN_TRACE_COPY_DISPATCH']}"
+        )
     if os.environ.get("MLX_VULKAN_TRACE_SYNC"):
         print(f"MLX_VULKAN_TRACE_SYNC: {os.environ['MLX_VULKAN_TRACE_SYNC']}")
     print(f"MLX_VULKAN_PROFILE_MAX_TOKENS: {max_tokens}")
