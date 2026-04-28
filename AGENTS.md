@@ -59,6 +59,25 @@ This branch adds Vulkan GPU support to MLX as a new backend.
 | `./dev.sh pr-comments [args]` | Fetch unresolved PR review comments | ~1s | Active comments from current PR (use `--submodule mlx` for submodule PRs) |
 | `./dev.sh generate [args]` | Run mlx_lm.generate with Qwen3-0.6B-bf16 | varies | Text generation output |
 | `./scripts/gdb.sh [PID]` | Attach gdb to a running process for backtraces | ~5s | Thread backtraces for debugging hangs |
+| `./scripts/enumerate_model_ops.py` | Enumerate model layers and ops with shapes | ~10s | One op per line: name, type, input/output shapes |
+
+### Model Enumeration Script
+
+The `enumerate_model_ops.py` script loads a HuggingFace model and prints a compact listing of all layers and operations with their input/output shapes:
+
+```bash
+# Default model (qwen3-0.6b-bf16)
+./dev.sh run python scripts/enumerate_model_ops.py
+
+# Specific model
+./dev.sh run python scripts/enumerate_model_ops.py --model mlx-community/Qwen3.5-2B-bf16
+
+# Custom prompt
+./dev.sh run python scripts/enumerate_model_ops.py --prompt "Hello world"
+```
+
+**Output format:** One operation per line showing `operation_name type input_shape output_shape`.
+Use this to understand model structure, layer counts, and tensor shapes flowing through the network.
 
 ## Test Commands
 
