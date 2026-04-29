@@ -41,11 +41,6 @@ This branch adds Vulkan GPU support to MLX as a new backend.
 ./dev.sh pr-comments --submodule mlx
 ```
 
-**What it does:**
-- Runs CMake build with Vulkan backend enabled
-- Builds all targets including C++ tests (`./build/tests/test_mlx`)
-- Uses virtual environment at `./virtual-env`
-
 ### Build Scripts Summary
 
 | Script | Use Case | Time | Output |

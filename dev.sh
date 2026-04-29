@@ -107,8 +107,8 @@ cmd_build() {
             -DMLX_PYTHON_BINDINGS_OUTPUT_DIRECTORY="$PYTHON_BINDINGS_DIR"
     fi
 
-    echo "Building mlx Python extension..."
-    cmake --build "$BUILD_DIR" --target core -j$(nproc)
+    echo "Building mlx Python extension and tests..."
+    cmake --build "$BUILD_DIR" --target core tests -j$(nproc)
 
     BUILT_SO="${PYTHON_BINDINGS_DIR}/${SO_FILENAME}"
 
