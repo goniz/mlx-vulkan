@@ -3,7 +3,7 @@ Home for the Development of MLX Vulkan backend
 
 ## Benchmark Results
 
-Results from running on AMD Radeon 8060S (Strix Halo) with params-buffer optimization (runtime shape/strides/offsets via SSBO, eliminating per-layout SPIR-V compilation):
+Results from running on AMD Radeon 8060S (Strix Halo):
 
 ### Qwen3-0.6B
 
@@ -31,4 +31,4 @@ Averages: prompt_tps=1085.916, generation_tps=8.824, peak_memory=1.303
 
 ### Qwen3.6-35B-A3B (MoE)
 
-> **Note**: MoE models currently fail with `ArgPartition/ArgSort Vulkan requires sort axis <= 1024 elements`.
+TBD
