@@ -9,6 +9,7 @@ set -euo pipefail
 # Commands:
 #   init-venv     Create and setup virtual environment (uv-based)
 #   build         Fast editable build for development
+#   test-cpp      Run C++ tests with optional arguments
 #   build-wheel   Build wheel for distribution
 #   benchmark     Run benchmark with optional model override
 #   profile       Profile Qwen3 model inference with detailed tracing
@@ -23,6 +24,7 @@ Usage: ./dev.sh <command> [options]
 Commands:
   init-venv         Create and setup virtual environment
   build             Fast editable build for development
+  test-cpp [args]   Run C++ tests with optional arguments
   build-wheel       Build wheel for distribution
   benchmark [quant] [--model MODEL]
                     Run benchmark (default model: Qwen3-0.6B)
@@ -34,6 +36,7 @@ Commands:
 Examples:
   ./dev.sh init-venv
   ./dev.sh build
+  ./dev.sh test-cpp --abort-after=1
   ./dev.sh run python3 --version
   ./dev.sh run python3 scripts/my_script.py
   ./dev.sh build-wheel
@@ -177,6 +180,10 @@ cmd_build_wheel() {
     echo "Wheel built successfully! Check wheelhouse/ directory"
 }
 
+cmd_test_cpp() {
+    ./build/tests/tests "$@"
+}
+
 cmd_run() {
     if [ $# -eq 0 ]; then
         echo "Error: No command specified for 'run'
@@ -289,6 +296,9 @@ case "$COMMAND" in
         ;;
     build)
         cmd_build
+        ;;
+    test-cpp)
+        cmd_test_cpp "$@"
         ;;
     build-wheel)
         cmd_build_wheel

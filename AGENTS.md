@@ -47,6 +47,7 @@ This branch adds Vulkan GPU support to MLX as a new backend.
 |--------|----------|------|--------|
 | `./dev.sh init-venv` | First time setup, creates venv | ~1-2 min | `./virtual-env/` with dependencies |
 | `./dev.sh build` | Daily development, quick iterations | ~2-5 min | Updates `python/mlx/core*.so` |
+| `./dev.sh test-cpp [args]` | Run C++ tests with optional doctest args | varies | Executes `./build/tests/tests` |
 | `./dev.sh build-wheel` | Full build for distribution | ~10-15 min | Wheel in `wheelhouse/` |
 | `./dev.sh run <cmd>` | Run command inside venv | varies | Executes command in virtual-env |
 | `./dev.sh benchmark [quant] [--model MODEL]` | Run benchmark with optional model override | ~1-2 min | Performance metrics for the selected model |
@@ -85,7 +86,8 @@ DEVICE=gpu python -m unittest discover python/tests -v
 DEVICE=cpu python -m unittest discover python/tests -v
 
 # C++ tests
-./build/tests/test_mlx
+./dev.sh test-cpp
+./dev.sh test-cpp --abort-after=1
 
 # Distributed tests
 mpirun --bind-to none -np 8 python python/tests/mpi_test_distributed.py
@@ -144,7 +146,7 @@ cmake-format -i CMakeLists.txt
 - Location: `tests/` directory
 - Naming: `*_tests.cpp`
 - Macros: `TEST_CASE("name")`, `CHECK()`, `CHECK_EQ()`, `CHECK_THROWS_AS()`
-- Running with fail-fast: `./build/tests/tests --abort-after=1`
+- Running with fail-fast: `./dev.sh test-cpp --abort-after=1`
 
 ### Python Tests (unittest)
 - Location: `python/tests/`
