@@ -33,3 +33,11 @@
 [submodule "references/zinc"]
 	path = references/zinc
 	url = https://github.com/zolotukhin/zinc.git
+[submodule "references/mlx-vlm"]
+	path = references/mlx-vlm
+	url = https://github.com/Blaizzy/mlx-vlm
+	branch = main
+[submodule "references/mlx-lm"]
+	path = references/mlx-lm
+	url = https://github.com/ml-explore/mlx-lm
+	branch = main
