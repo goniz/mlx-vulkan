@@ -793,11 +793,11 @@ def main():
         "--model",
         type=str,
         default="mlx-community/qwen3-0.6b-bf16",
-        choices=[
-            "mlx-community/Qwen3.5-2B-bf16",
-            "mlx-community/qwen3-0.6b-bf16",
-        ],
-        help="Model to profile (default: mlx-community/qwen3-0.6b-bf16)",
+        help=(
+            "Model to profile (default: mlx-community/qwen3-0.6b-bf16). "
+            "Examples: mlx-community/Qwen3.5-2B-bf16, "
+            "mlx-community/Qwen3.6-35B-A3B-8bit"
+        ),
     )
     parser.add_argument(
         "--prompt",
