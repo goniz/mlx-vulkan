@@ -181,7 +181,12 @@ cmd_build_wheel() {
 }
 
 cmd_test_cpp() {
-    ./build/tests/tests "$@"
+    local args=()
+    for arg in "$@"; do
+        args+=("${arg/--fail-after/--abort-after}")
+    done
+
+    ./build/tests/tests "${args[@]}"
 }
 
 cmd_run() {
