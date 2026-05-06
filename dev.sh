@@ -13,7 +13,7 @@ set -euo pipefail
 #   build-wheel   Build wheel for distribution
 #   benchmark     Run benchmark with optional model override
 #   profile       Profile Qwen3 model inference with detailed tracing
-#   generate      Run mlx_lm.generate with Qwen3-0.6B-bf16
+#   generate      Run mlx_lm.generate with optional model override
 
 show_help() {
     cat << EOF
@@ -31,7 +31,8 @@ Commands:
   update-benchmark  Run benchmarks and update baseline file with comparison
   pr-comments       Fetch non-resolved PR review comments
   run <cmd> [args]  Run a command inside the virtual environment
-  generate [args]   Run mlx_lm.generate with Qwen3-0.6B-bf16
+  generate [quant] [--model MODEL] [args]
+                    Run mlx_lm.generate (default model: Qwen3-0.6B-bf16)
 
 Examples:
   ./dev.sh init-venv
@@ -47,8 +48,10 @@ Examples:
   ./dev.sh profile          # Profile 0.6B model
   ./dev.sh profile 2b       # Profile 2B model
   ./dev.sh pr-comments      # Fetch PR review comments for current branch
-  ./dev.sh generate         # Run text generation
+  ./dev.sh generate         # Run text generation with bf16
+  ./dev.sh generate 8bit    # Run text generation with 8-bit quantization
   ./dev.sh generate --prompt "Hello, how are you?"
+  ./dev.sh generate --model mlx-community/Qwen3-0.6B-8bit
 EOF
 }
 
@@ -277,13 +280,42 @@ cmd_profile() {
 }
 
 cmd_generate() {
-    echo "Running mlx_lm.generate with mlx-community/Qwen3-0.6B-bf16..."
+    local quant="bf16"
+    local model=""
+    local args=()
+
+    while [ $# -gt 0 ]; do
+        case "$1" in
+            --model)
+                if [ $# -lt 2 ]; then
+                    echo "Error: --model requires a value" >&2
+                    exit 1
+                fi
+                model="$2"
+                shift 2
+                ;;
+            bf16|8bit)
+                quant="$1"
+                shift
+                ;;
+            *)
+                args+=("$1")
+                shift
+                ;;
+        esac
+    done
+
+    if [ -z "$model" ]; then
+        model="mlx-community/Qwen3-0.6B-$quant"
+    fi
+
+    echo "Running mlx_lm.generate with $model..."
     
     # Disable OpenMPI ROCm accelerator to prevent segfault on exit
     export OMPI_MCA_accelerator=^rocm
     
     source virtual-env/bin/activate
-    mlx_lm.generate --model mlx-community/Qwen3-0.6B-bf16 "$@"
+    mlx_lm.generate --model "$model" "${args[@]}"
 }
 
 # Main dispatch
