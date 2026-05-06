@@ -210,6 +210,7 @@ tests/             # C++ unit tests
 
 - **Always use `./dev.sh` for code-build-test cycles** - don't run cmake or pip install directly
 - **NEVER run build and test commands in parallel** - tests depend on builds completing first
+- **NEVER run benchmarks in parallel tool calls** - benchmarks must run sequentially, one at a time
 - **Use the `question` tool** to ask the user questions during execution (for preferences, requirements, clarifications, or implementation decisions)
 - Run tests after making changes
 - **Run `./dev.sh generate` after making changes to validate output coherence** - some bugs may cause the model to output garbage or incoherent text without crashing
