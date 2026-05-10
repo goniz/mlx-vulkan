@@ -1,6 +1,6 @@
 ---
 description: Run the MLX benchmarks
-model: fireworks-ai/accounts/fireworks/routers/kimi-k2p5-turbo
+model: opencode-go/deepseek-v4-flash
 subtask: true
 ---
 Run the benchmarks using `@dev.sh benchmark` (both bf16 and 8bit).

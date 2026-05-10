@@ -1,6 +1,6 @@
 ---
 description: Commit the changes in the mlx submodule
-model: fireworks-ai/accounts/fireworks/routers/kimi-k2p5-turbo
+model: opencode-go/deepseek-v4-flash
 subtask: true
 ---
 Commit the changes in the mlx submodule (goniz/mlx)
