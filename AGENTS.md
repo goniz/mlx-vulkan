@@ -48,6 +48,7 @@ This branch adds Vulkan GPU support to MLX as a new backend.
 | `./dev.sh init-venv` | First time setup, creates venv | ~1-2 min | `./virtual-env/` with dependencies |
 | `./dev.sh build` | Daily development, quick iterations | ~2-5 min | Updates `python/mlx/core*.so` |
 | `./dev.sh test-cpp [args]` | Run C++ tests with optional doctest args | varies | Executes `./build/tests/tests` |
+| `./dev.sh test-py [args]` | Run Python tests with pytest | varies | Runs `pytest mlx/python/tests` with optional args |
 | `./dev.sh build-wheel` | Full build for distribution | ~10-15 min | Wheel in `wheelhouse/` |
 | `./dev.sh run <cmd>` | Run command inside venv | varies | Executes command in virtual-env |
 | `./dev.sh benchmark [quant] [--model MODEL]` | Run benchmark with optional model override | ~1-2 min | Performance metrics for the selected model |
@@ -79,11 +80,14 @@ Use this to understand model structure, layer counts, and tensor shapes flowing 
 
 ```bash
 # All Python tests
-python -m unittest discover python/tests -v
+./dev.sh test-py
 
 # Run on specific device
-DEVICE=gpu python -m unittest discover python/tests -v
-DEVICE=cpu python -m unittest discover python/tests -v
+DEVICE=gpu ./dev.sh test-py
+DEVICE=cpu ./dev.sh test-py
+
+# Run specific Python tests
+./dev.sh test-py -k test_array
 
 # C++ tests
 ./dev.sh test-cpp
@@ -148,12 +152,13 @@ cmake-format -i CMakeLists.txt
 - Macros: `TEST_CASE("name")`, `CHECK()`, `CHECK_EQ()`, `CHECK_THROWS_AS()`
 - Running with fail-fast: `./dev.sh test-cpp --abort-after=1`
 
-### Python Tests (unittest)
-- Location: `python/tests/`
+### Python Tests (pytest)
+- Location: `mlx/python/tests/`
 - Naming: `test_*.py`
 - Base class: `mlx_tests.MLXTestCase`
 - Array comparison: `self.assertEqualArray(mx_res, expected, atol=, rtol=)`
 - Set `MLX_ENABLE_TF32=0` for deterministic results
+- Run via: `./dev.sh test-py` (passes extra args to pytest)
 
 ## Project Structure
 
@@ -225,6 +230,16 @@ tests/             # C++ unit tests
 - Shaders should be compiled automatically by CMake; check build output if shaders fail
 - NEVER edit source files outside of mlx/backends/vulkan !! (test files are allowed)
 - **When running `scripts/profile_qwen3_vulkan.py` with sync trace enabled (`MLX_VULKAN_TRACE_SYNC=1` or `--no-capture-sync-trace`), use short timeouts** - the script can hang with sync traces, so wrap invocations with a timeout (e.g., `timeout 30s ./dev.sh profile`)
+
+### Async Pipeline Policy
+- Treat every Vulkan `eval_gpu` path as part of the inference pipeline. Keep work fully async on the stream and preserve kernel chaining.
+- Do not add host synchronization in Vulkan hot paths. Avoid `eval()`, `wait()`, blocking event waits, host polling, or any equivalent stream flush in normal execution.
+- Do not extract GPU results on the CPU inside Vulkan implementations. Avoid `item<T>()`, `data<T>()`, CPU loops over tensor contents, host scratch buffers, and readback-driven special cases.
+- Prefer GPU-native implementations first: shared-buffer views, reshape/slice/broadcast/as-strided views, existing Vulkan copy helpers, device fills, and Vulkan compute dispatches.
+- Avoid extra copies. Do not introduce `contiguous_copy_gpu`, staging copies, or cast copies unless layout or shader constraints make them strictly necessary.
+- Scalar and small-tensor fast paths must stay device-side whenever possible. Use GPU fills, broadcasts, copies, or views instead of CPU materialization.
+- In review, treat `eval()`, `wait()`, host readback, CPU extraction, and unnecessary copies in Vulkan code as performance regressions unless they are explicitly debug-only.
+- If the only way to implement an op is with host sync, CPU extraction, or a pipeline-breaking fallback, prefer an explicit `NYI`/unsupported error over silently regressing inference performance.
 
 ## Github instructions
 - Every PR that you create, should contain the results of qwen3 benchmark by running `./dev.sh benchmark [bf16|8bit]` against bf16 and 8bit quants, either as pr desc or as comment

@@ -25,6 +25,7 @@ Commands:
   init-venv         Create and setup virtual environment
   build             Fast editable build for development
   test-cpp [args]   Run C++ tests with optional arguments
+  test-py [args]    Run Python tests with pytest
   build-wheel       Build wheel for distribution
   benchmark [quant] [--model MODEL]
                     Run benchmark (default model: Qwen3-0.6B)
@@ -38,6 +39,8 @@ Examples:
   ./dev.sh init-venv
   ./dev.sh build
   ./dev.sh test-cpp --abort-after=1
+  ./dev.sh test-py                                # Run all Python tests
+  ./dev.sh test-py -k test_array                  # Run matching Python tests
   ./dev.sh run python3 --version
   ./dev.sh run python3 scripts/my_script.py
   ./dev.sh build-wheel
@@ -192,6 +195,11 @@ cmd_test_cpp() {
     ./build/tests/tests "${args[@]}"
 }
 
+cmd_test_py() {
+    source virtual-env/bin/activate
+    pytest mlx/python/tests "$@"
+}
+
 cmd_run() {
     if [ $# -eq 0 ]; then
         echo "Error: No command specified for 'run'
@@ -336,6 +344,9 @@ case "$COMMAND" in
         ;;
     test-cpp)
         cmd_test_cpp "$@"
+        ;;
+    test-py)
+        cmd_test_py "$@"
         ;;
     build-wheel)
         cmd_build_wheel
