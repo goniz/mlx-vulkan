@@ -10,23 +10,23 @@ Results from running on AMD Radeon 8060S (Strix Halo):
 #### bf16
 ```
 Timing with prompt_tokens=4096, generation_tokens=128, batch_size=1.
-Trial 1:  prompt_tps=1665.949, generation_tps=12.419, peak_memory=2.450, total_time=12.899
-Trial 2:  prompt_tps=1673.971, generation_tps=12.466, peak_memory=2.450, total_time=12.850
-Trial 3:  prompt_tps=1664.858, generation_tps=12.403, peak_memory=2.450, total_time=12.914
-Trial 4:  prompt_tps=1678.745, generation_tps=12.333, peak_memory=2.450, total_time=12.954
-Trial 5:  prompt_tps=1671.959, generation_tps=12.392, peak_memory=2.450, total_time=12.911
-Averages: prompt_tps=1671.096, generation_tps=12.403, peak_memory=2.450
+Trial 1:  prompt_tps=1672.809, generation_tps=12.404, peak_memory=2.460, total_time=12.903
+Trial 2:  prompt_tps=1678.351, generation_tps=12.596, peak_memory=2.460, total_time=12.734
+Trial 3:  prompt_tps=1676.130, generation_tps=12.552, peak_memory=2.460, total_time=12.771
+Trial 4:  prompt_tps=1704.015, generation_tps=12.464, peak_memory=2.460, total_time=12.809
+Trial 5:  prompt_tps=1682.161, generation_tps=12.433, peak_memory=2.460, total_time=12.854
+Averages: prompt_tps=1682.693, generation_tps=12.490, peak_memory=2.460
 ```
 
 #### 8bit
 ```
 Timing with prompt_tokens=4096, generation_tokens=128, batch_size=1.
-Trial 1:  prompt_tps=1071.398, generation_tps=10.824, peak_memory=1.403, total_time=15.781
-Trial 2:  prompt_tps=1065.573, generation_tps=10.815, peak_memory=1.403, total_time=15.810
-Trial 3:  prompt_tps=1069.161, generation_tps=10.878, peak_memory=1.404, total_time=15.730
-Trial 4:  prompt_tps=1071.178, generation_tps=10.857, peak_memory=1.404, total_time=15.747
-Trial 5:  prompt_tps=1069.500, generation_tps=10.673, peak_memory=1.404, total_time=15.950
-Averages: prompt_tps=1069.362, generation_tps=10.809, peak_memory=1.404
+Trial 1:  prompt_tps=1079.022, generation_tps=10.866, peak_memory=1.403, total_time=15.703
+Trial 2:  prompt_tps=1069.481, generation_tps=10.901, peak_memory=1.403, total_time=15.705
+Trial 3:  prompt_tps=1078.054, generation_tps=10.888, peak_memory=1.404, total_time=15.682
+Trial 4:  prompt_tps=1072.831, generation_tps=10.904, peak_memory=1.404, total_time=15.679
+Trial 5:  prompt_tps=1079.942, generation_tps=10.951, peak_memory=1.404, total_time=15.607
+Averages: prompt_tps=1075.866, generation_tps=10.902, peak_memory=1.404
 ```
 
 ### Qwen3.6-35B-A3B (MoE)
