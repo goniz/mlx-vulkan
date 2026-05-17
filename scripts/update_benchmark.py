@@ -36,7 +36,7 @@ def run_benchmark(quant: str) -> str:
 
     result = subprocess.run(cmd, capture_output=True, text=True, env=env)
 
-    return (result.stdout + result.stderr).strip()
+    return result.stdout.strip()
 
 
 def update_readme_section(content: str, section_name: str, new_content: str) -> str:
