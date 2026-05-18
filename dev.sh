@@ -2,15 +2,12 @@
 
 set -euo pipefail
 
-VULKAN_SDK_VERSION="${VULKAN_SDK_VERSION:-1.4.350.0}"
-
 # Development entrypoint script
-# Combines build-venv.sh, build-editable.sh, and build-vulkan.sh functionality
+# Combines build-venv.sh, build-editable.sh,  build-vulkan.sh functionality
 # Usage: ./dev.sh <command>
 #
 # Commands:
 #   init-venv     Create and setup virtual environment (uv-based)
-#   setup-vulkan-sdk  Install local Vulkan SDK (same version as CI runner)
 #   build         Fast editable build for development
 #   test-cpp      Run C++ tests with optional arguments
 #   build-wheel   Build wheel for distribution
@@ -26,7 +23,6 @@ Usage: ./dev.sh <command> [options]
 
 Commands:
   init-venv         Create and setup virtual environment
-  setup-vulkan-sdk  Install local Vulkan SDK (same version as CI runner)
   build             Fast editable build for development
   test-cpp [args]   Run C++ tests with optional arguments
   test-py [args]    Run Python tests with pytest
@@ -41,7 +37,6 @@ Commands:
 
 Examples:
   ./dev.sh init-venv
-  ./dev.sh setup-vulkan-sdk
   ./dev.sh build
   ./dev.sh test-cpp --abort-after=1
   ./dev.sh test-py                                # Run all Python tests
@@ -61,25 +56,6 @@ Examples:
   ./dev.sh generate --prompt "Hello, how are you?"
   ./dev.sh generate --model mlx-community/Qwen3-0.6B-8bit
 EOF
-}
-
-setup_vulkan_sdk_env() {
-    local SDK_DIR="${HOME}/.local/vulkan-sdk/${VULKAN_SDK_VERSION}/x86_64"
-
-    if [ ! -d "$SDK_DIR" ]; then
-        return 0
-    fi
-
-    export VULKAN_SDK="$SDK_DIR"
-    export PATH="${VULKAN_SDK}/bin:${PATH}"
-    export LD_LIBRARY_PATH="${VULKAN_SDK}/lib/VulkanLoader/lib:${VULKAN_SDK}/lib:${LD_LIBRARY_PATH:-}"
-    export VK_ADD_LAYER_PATH="${VULKAN_SDK}/share/vulkan/explicit_layer.d"
-    export PKG_CONFIG_PATH="${VULKAN_SDK}/lib/VulkanLoader/lib/pkgconfig:${VULKAN_SDK}/share/pkgconfig:${VULKAN_SDK}/lib/pkgconfig:${PKG_CONFIG_PATH:-}"
-    export CMAKE_PREFIX_PATH="${VULKAN_SDK}:${VULKAN_SDK}/lib/VulkanLoader:${CMAKE_PREFIX_PATH:-}"
-}
-
-cmd_setup_vulkan_sdk() {
-    bash scripts/setup-vulkan-sdk.sh "${1:-$VULKAN_SDK_VERSION}"
 }
 
 cmd_init_venv() {
@@ -132,22 +108,12 @@ cmd_build() {
         CMAKE_ARGS="$CMAKE_ARGS -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache"
     fi
 
-    # Check if Vulkan SDK has changed and force reconfiguration
-    local SDK_STAMP="${BUILD_DIR}/.vulkan_sdk_stamp"
-    local CURRENT_SDK="${VULKAN_SDK:-system}"
-
-    if [ ! -f "$SDK_STAMP" ] || [ "$(cat "$SDK_STAMP")" != "$CURRENT_SDK" ]; then
-        echo "Vulkan SDK changed (was: $(cat "$SDK_STAMP" 2>/dev/null || echo 'none'), now: $CURRENT_SDK), forcing CMake reconfiguration..."
-        rm -f "${BUILD_DIR}/CMakeCache.txt"
-    fi
-
     if [ ! -d "$BUILD_DIR" ] || [ ! -f "$BUILD_DIR/CMakeCache.txt" ]; then
         echo "Configuring CMake..."
         mkdir -p "$BUILD_DIR"
         cmake -S mlx -B "$BUILD_DIR" $CMAKE_ARGS \
             -DMLX_BUILD_PYTHON_BINDINGS=ON \
             -DMLX_PYTHON_BINDINGS_OUTPUT_DIRECTORY="$PYTHON_BINDINGS_DIR"
-        echo "${CURRENT_SDK}" > "$SDK_STAMP"
     fi
 
     echo "Building mlx Python extension and tests..."
@@ -364,6 +330,7 @@ cmd_generate() {
     
     # Disable OpenMPI ROCm accelerator to prevent segfault on exit
     export OMPI_MCA_accelerator=^rocm
+    disable_mpi_for_single_process_benchmark
     
     source virtual-env/bin/activate
     mlx_lm.generate --model "$model" "${args[@]}"
@@ -375,17 +342,12 @@ if [ $# -eq 0 ]; then
     exit 1
 fi
 
-setup_vulkan_sdk_env
-
 COMMAND="$1"
 shift
 
 case "$COMMAND" in
     init-venv)
         cmd_init_venv
-        ;;
-    setup-vulkan-sdk)
-        cmd_setup_vulkan_sdk "$@"
         ;;
     build)
         cmd_build
