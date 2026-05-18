@@ -33,7 +33,7 @@ Commands:
   build-wheel       Build wheel for distribution
   benchmark [quant] [--model MODEL]
                     Run benchmark (default model: Qwen3-0.6B)
-  update-benchmark  Run benchmarks and update baseline file with comparison
+  update-benchmark  Run benchmarks and update benchmark history/graphs
   pr-comments       Fetch non-resolved PR review comments
   run <cmd> [args]  Run a command inside the virtual environment
   generate [quant] [--model MODEL] [args]
@@ -52,7 +52,7 @@ Examples:
   ./dev.sh benchmark                              # Run Qwen3 with bf16
   ./dev.sh benchmark 8bit                         # Run Qwen3 with 8-bit quantization
   ./dev.sh benchmark --model mlx-community/gemma-4-e2b-bf16
-  ./dev.sh update-benchmark # Update baseline with current performance
+  ./dev.sh update-benchmark # Update benchmark history with current performance
   ./dev.sh profile          # Profile 0.6B model
   ./dev.sh profile 2b       # Profile 2B model
   ./dev.sh pr-comments      # Fetch PR review comments for current branch
@@ -291,7 +291,7 @@ cmd_benchmark() {
 cmd_update_benchmark() {
     disable_mpi_for_single_process_benchmark
     source virtual-env/bin/activate
-    python scripts/update_benchmark.py
+    python scripts/update_benchmark.py "$@"
 }
 
 cmd_pr_comments() {
@@ -406,7 +406,7 @@ case "$COMMAND" in
         cmd_benchmark "$@"
         ;;
     update-benchmark)
-        cmd_update_benchmark
+        cmd_update_benchmark "$@"
         ;;
     pr-comments)
         cmd_pr_comments "$@"
