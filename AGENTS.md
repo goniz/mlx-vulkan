@@ -51,7 +51,7 @@ This branch adds Vulkan GPU support to MLX as a new backend.
 | `./dev.sh test-py [args]` | Run Python tests with pytest | varies | Runs `pytest mlx/python/tests` with optional args |
 | `./dev.sh build-wheel` | Full build for distribution | ~10-15 min | Wheel in `wheelhouse/` |
 | `./dev.sh run <cmd>` | Run command inside venv | varies | Executes command in virtual-env |
-| `./dev.sh benchmark [quant] [--model MODEL]` | Run benchmark with optional model override | ~1-2 min | Performance metrics for the selected model |
+| `./dev.sh benchmark [quant] [--model MODEL]` | Run benchmark with optional model override | ~1-2 min | Performance metrics for the selected model; disables MPI for single-process runs |
 | `./dev.sh profile [model]` | Profile Qwen3 inference (0.6b or 2b) | ~1-2 min | Detailed per-layer timing and fallback analysis |
 | `./dev.sh pr-comments [args]` | Fetch unresolved PR review comments | ~1s | Active comments from current PR (use `--submodule mlx` for submodule PRs) |
 | `./dev.sh generate [args]` | Run mlx_lm.generate with Qwen3-0.6B-bf16 | varies | Text generation output |
@@ -75,6 +75,18 @@ The `enumerate_model_ops.py` script loads a HuggingFace model and prints a compa
 
 **Output format:** One operation per line showing `operation_name type input_shape output_shape`.
 Use this to understand model structure, layer counts, and tensor shapes flowing through the network.
+
+### MPI and Single-Process Benchmarks
+
+`./dev.sh benchmark` and `./dev.sh update-benchmark` disable MLX MPI discovery by default with `MLX_MPI_LIBNAME=/dev/null`. `mlx_lm.benchmark` calls `mx.distributed.init()` unconditionally; on hosts with OpenMPI installed, a size-1 MPI group can underdrive Vulkan async decode and make single-process benchmark numbers much slower. Disabling MPI keeps single-process benchmarks on the intended non-distributed execution path.
+
+For ad-hoc `./dev.sh run ...` commands that call `mx.distributed.init()` but should behave like a single-process non-MPI benchmark, disable MPI explicitly:
+
+```bash
+MLX_MPI_LIBNAME=/dev/null ./dev.sh run python your_script.py
+```
+
+Do not set `MLX_MPI_LIBNAME=/dev/null` for real MPI/distributed tests. Use the distributed commands normally when MPI is intentional.
 
 ## Test Commands
 
