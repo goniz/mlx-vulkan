@@ -16,5 +16,5 @@ Benchmark data is stored in `results.csv`. Graphs are regenerated from that file
 
 | Model | Bits | Prompt TPS | Generation TPS | Peak memory (GB) | mlx-vulkan | mlx | Run |
 | --- | --- | ---: | ---: | ---: | --- | --- | --- |
-| mlx-community/Qwen3-0.6B-8bit | 8bit | 1316.035 | 19.709 | 1.917 | 1382138 | f81649a | [run](https://github.com/goniz/mlx-vulkan/actions/runs/26115334542) |
-| mlx-community/Qwen3-0.6B-bf16 | bf16 | 2263.796 | 28.465 | 2.565 | 1382138 | f81649a | [run](https://github.com/goniz/mlx-vulkan/actions/runs/26115334542) |
+| mlx-community/Qwen3-0.6B-8bit | 8bit | 1330.239 | 19.969 | 1.917 | 53a6764 | 2a18b7c | [run](https://github.com/goniz/mlx-vulkan/actions/runs/26142834214) |
+| mlx-community/Qwen3-0.6B-bf16 | bf16 | 2337.462 | 28.049 | 2.565 | 53a6764 | 2a18b7c | [run](https://github.com/goniz/mlx-vulkan/actions/runs/26142834214) |
