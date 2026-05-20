@@ -196,6 +196,10 @@ cmd_test_cpp() {
 }
 
 cmd_test_py() {
+    # Disable OpenMPI ROCm accelerator to prevent segfault on exit
+    export OMPI_MCA_accelerator=^rocm
+    disable_mpi_for_single_process_benchmark
+
     source virtual-env/bin/activate
     pytest mlx/python/tests "$@"
 }
@@ -207,6 +211,10 @@ Usage: ./dev.sh run <command> [args...]
 Example: ./dev.sh run python3 --version" >&2
         exit 1
     fi
+
+    # Disable OpenMPI ROCm accelerator to prevent segfault on exit
+    export OMPI_MCA_accelerator=^rocm
+    disable_mpi_for_single_process_benchmark
 
     source virtual-env/bin/activate
     exec "$@"
