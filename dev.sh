@@ -72,8 +72,7 @@ cmd_init_venv() {
     # Uninstall the PyPI mlx package to avoid shadowing our local build
     uv pip uninstall mlx 
     uv pip install pytest psutil
-    # Uncomment if you need PyTorch with ROCm support:
-    # uv pip install --pre torch torchvision --index-url https://download.pytorch.org/whl/nightly/rocm7.2
+    uv pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
     echo "Virtual environment initialized successfully!"
 }
 
