@@ -14,6 +14,7 @@ set -euo pipefail
 #   benchmark     Run benchmark with optional model override
 #   profile       Profile Qwen3 model inference with detailed tracing
 #   generate      Run mlx_lm.generate with optional model override
+#   model-report  Run serial generation smoke tests across models
 
 show_help() {
     cat << EOF
@@ -34,6 +35,8 @@ Commands:
   run <cmd> [args]  Run a command inside the virtual environment
   generate [quant] [--model MODEL] [args]
                     Run mlx_lm.generate (default model: Qwen3-0.6B-bf16)
+  model-report [args]
+                    Run scripts/model_generation_report.py inside the venv
 
 Examples:
   ./dev.sh init-venv
@@ -55,6 +58,7 @@ Examples:
   ./dev.sh generate 8bit    # Run text generation with 8-bit quantization
   ./dev.sh generate --prompt "Hello, how are you?"
   ./dev.sh generate --model mlx-community/Qwen3-0.6B-8bit
+  ./dev.sh model-report --models mlx-community/Qwen3-0.6B-bf16 --max-tokens 16
 EOF
 }
 
@@ -343,6 +347,15 @@ cmd_generate() {
     mlx_lm.generate --model "$model" "${args[@]}"
 }
 
+cmd_model_report() {
+    # Disable OpenMPI ROCm accelerator to prevent segfault on exit
+    export OMPI_MCA_accelerator=^rocm
+    disable_mpi_for_single_process_benchmark
+
+    source virtual-env/bin/activate
+    python scripts/model_generation_report.py "$@"
+}
+
 # Main dispatch
 if [ $# -eq 0 ]; then
     show_help
@@ -385,6 +398,9 @@ case "$COMMAND" in
         ;;
     generate)
         cmd_generate "$@"
+        ;;
+    model-report)
+        cmd_model_report "$@"
         ;;
     help|--help|-h)
         show_help
