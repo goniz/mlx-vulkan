@@ -13,5 +13,5 @@ CI benchmark history from AMD Radeon 8060S (Strix Halo). Detailed data is in `be
 
 | Model | Bits | Prompt TPS | Generation TPS | Peak memory (GB) | mlx-vulkan | mlx | Run |
 | --- | --- | ---: | ---: | ---: | --- | --- | --- |
-| mlx-community/Qwen3-0.6B-8bit | 8bit | 1304.978 | 18.946 | 1.917 | 96fe5ce | e26ac9f | [run](https://github.com/goniz/mlx-vulkan/actions/runs/26179663920) |
-| mlx-community/Qwen3-0.6B-bf16 | bf16 | 2257.811 | 27.349 | 2.565 | 96fe5ce | e26ac9f | [run](https://github.com/goniz/mlx-vulkan/actions/runs/26179663920) |
+| mlx-community/Qwen3-0.6B-8bit | 8bit | 1320.984 | 18.960 | 1.896 | 545e44c | 045d17b | [run](https://github.com/goniz/mlx-vulkan/actions/runs/26368847068) |
+| mlx-community/Qwen3-0.6B-bf16 | bf16 | 2286.532 | 28.557 | 2.603 | 545e44c | 045d17b | [run](https://github.com/goniz/mlx-vulkan/actions/runs/26368847068) |
