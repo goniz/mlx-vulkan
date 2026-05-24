@@ -120,6 +120,8 @@ isort --profile=black file.py # Sort Python imports
 cmake-format -i CMakeLists.txt
 ```
 
+Note: avoid running formatters manually during agent work when the harness already handles formatting.
+
 ## Code Style
 
 ### C++ (C++20, clang-format)
