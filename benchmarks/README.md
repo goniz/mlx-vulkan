@@ -16,8 +16,8 @@ Benchmark data is stored in `results.csv`. Graphs are regenerated from that file
 
 | Model | Bits | Prompt TPS | Generation TPS | Peak memory (GB) | mlx-vulkan | mlx | Run |
 | --- | --- | ---: | ---: | ---: | --- | --- | --- |
-| mlx-community/Qwen3-0.6B-8bit | 8bit | 1320.912 | 18.808 | 1.898 | c140331 | 68a4c6b | [run](https://github.com/goniz/mlx-vulkan/actions/runs/26371767095) |
-| mlx-community/Qwen3-0.6B-bf16 | bf16 | 2293.349 | 28.079 | 2.603 | c140331 | 68a4c6b | [run](https://github.com/goniz/mlx-vulkan/actions/runs/26371767095) |
+| mlx-community/Qwen3-0.6B-8bit | 8bit | 1329.371 | 25.035 | 2.204 | ea6f0f4 | 8e4a5d8 | [run](https://github.com/goniz/mlx-vulkan/actions/runs/26375042081) |
+| mlx-community/Qwen3-0.6B-bf16 | bf16 | 2335.527 | 62.190 | 2.824 | ea6f0f4 | 8e4a5d8 | [run](https://github.com/goniz/mlx-vulkan/actions/runs/26375042081) |
 
 ## Model Generation Report
 
@@ -25,7 +25,7 @@ Generation smoke tests run with `scripts/model_generation_report.py` through `./
 
 | Model | Output | Coherent | Peak memory (GB) | Sample | Error |
 | --- | --- | --- | ---: | --- | --- |
-| mlx-community/Qwen3-0.6B-bf16 | pass | pass | 1.144 | Vulkan acceleration is useful because it allows for efficient rendering of complex scenes wit... |  |
-| mlx-community/Qwen3-0.6B-8bit | pass | pass | 0.956 | Vulkan acceleration is useful because it allows for efficient rendering of complex scenes wit... |  |
-| mlx-community/Qwen3.5-2B-bf16 | pass | pass | 3.728 | <think> </think> Vulkan acceleration is useful because it allows applications to leverage the... |  |
-| mlx-community/gemma-4-e2b-bf16 | pass | pass | 10.817 | Write one concise sentence about why Vulkan acceleration is useful. Write one concise sentenc... |  |
+| mlx-community/Qwen3-0.6B-bf16 | pass | pass | 1.146 | Vulkan acceleration is useful because it allows for efficient rendering of complex scenes wit... |  |
+| mlx-community/Qwen3-0.6B-8bit | pass | pass | 1.033 | Vulkan acceleration is useful because it allows for efficient rendering of complex scenes wit... |  |
+| mlx-community/Qwen3.5-2B-bf16 | pass | pass | 3.751 | <think> </think> Vulkan acceleration is useful because it allows applications to leverage the... |  |
+| mlx-community/gemma-4-e2b-bf16 | pass | pass | 10.927 | Write one concise sentence about why Vulkan acceleration is useful. Write one concise sentenc... |  |
