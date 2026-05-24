@@ -16,5 +16,16 @@ Benchmark data is stored in `results.csv`. Graphs are regenerated from that file
 
 | Model | Bits | Prompt TPS | Generation TPS | Peak memory (GB) | mlx-vulkan | mlx | Run |
 | --- | --- | ---: | ---: | ---: | --- | --- | --- |
-| mlx-community/Qwen3-0.6B-8bit | 8bit | 1320.984 | 18.960 | 1.896 | 545e44c | 045d17b | [run](https://github.com/goniz/mlx-vulkan/actions/runs/26368847068) |
-| mlx-community/Qwen3-0.6B-bf16 | bf16 | 2286.532 | 28.557 | 2.603 | 545e44c | 045d17b | [run](https://github.com/goniz/mlx-vulkan/actions/runs/26368847068) |
+| mlx-community/Qwen3-0.6B-8bit | 8bit | 1328.602 | 19.271 | 1.901 | 21e14fb | 68a4c6b | local |
+| mlx-community/Qwen3-0.6B-bf16 | bf16 | 2315.715 | 28.600 | 2.603 | 21e14fb | 68a4c6b | local |
+
+## Model Generation Report
+
+Generation smoke tests run with `scripts/model_generation_report.py` through `./dev.sh update-benchmark`.
+
+| Model | Output | Coherent | Peak memory (GB) | Sample | Error |
+| --- | --- | --- | ---: | --- | --- |
+| mlx-community/Qwen3-0.6B-bf16 | pass | pass | 1.144 | Vulkan acceleration is useful because it allows for efficient rendering of complex scenes wit... |  |
+| mlx-community/Qwen3-0.6B-8bit | pass | pass | 0.956 | Vulkan acceleration is useful because it allows for efficient rendering of complex scenes wit... |  |
+| mlx-community/Qwen3.5-2B-bf16 | pass | pass | 3.728 | <think> </think> Vulkan acceleration is useful because it allows applications to leverage the... |  |
+| mlx-community/gemma-4-e2b-bf16 | pass | pass | 10.82 | Write one concise sentence about why Vulkan acceleration is useful. Write one concise sentenc... |  |
