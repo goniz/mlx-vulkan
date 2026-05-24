@@ -43,7 +43,7 @@ jobs:
       - name: Run generate validation
         run: ./dev.sh generate --prompt "Hello, how are you?" --max-tokens 10
 
-      - name: Run benchmarks and update benchmark history
+      - name: Run benchmarks, model report, and update history
         run: ./dev.sh update-benchmark
 
       - name: Commit benchmark results
@@ -51,7 +51,7 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add README.md benchmarks/README.md benchmarks/results.csv benchmarks/prompt_tps.svg benchmarks/generation_tps.svg
+          git add README.md benchmarks/README.md benchmarks/results.csv benchmarks/model_generation_report.json benchmarks/prompt_tps.svg benchmarks/generation_tps.svg
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else

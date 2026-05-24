@@ -8,6 +8,7 @@ import os
 import re
 import sys
 from dataclasses import asdict, dataclass
+from pathlib import Path
 from typing import Iterable
 
 os.environ.setdefault("HF_HUB_DISABLE_PROGRESS_BARS", "1")
@@ -263,6 +264,11 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Also print the final report as JSON.",
     )
+    parser.add_argument(
+        "--json-output",
+        type=Path,
+        help="Write the final report as JSON to this path.",
+    )
     return parser.parse_args()
 
 
@@ -280,9 +286,13 @@ def main() -> int:
     ]
 
     print_report(results)
+    json_results = [asdict(result) for result in results]
+    if args.json_output:
+        args.json_output.parent.mkdir(parents=True, exist_ok=True)
+        args.json_output.write_text(json.dumps(json_results, indent=2) + "\n")
     if args.json:
         print("\nJSON Report")
-        print(json.dumps([asdict(result) for result in results], indent=2))
+        print(json.dumps(json_results, indent=2))
 
     failed = any(
         not result.generated_output or not result.output_was_coherent for result in results
