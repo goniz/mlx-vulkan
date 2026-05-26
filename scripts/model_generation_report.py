@@ -36,8 +36,12 @@ except ImportError:
 DEFAULT_MODELS = [
     "mlx-community/Qwen3-0.6B-bf16",
     "mlx-community/Qwen3-0.6B-8bit",
+    "LiquidAI/LFM2.5-1.2B-Instruct-MLX-8bit",
     "mlx-community/Qwen3.5-2B-bf16",
     "mlx-community/gemma-4-e2b-bf16",
+    "mlx-community/Qwen3.6-35B-A3B-8bit",
+    "mlx-community/gpt-oss-20b-MXFP4-Q8",
+    "mlx-community/Qwen3.6-27B-8bit",
 ]
 
 DEFAULT_PROMPT = "Write one concise sentence about why Vulkan acceleration is useful."
@@ -152,10 +156,16 @@ def run_model(
             model, processor = vlm_load(model_name)
             print("Generating with mlx_vlm...", flush=True)
             mx.reset_peak_memory()
+            formatted_prompt = prompt
+            if hasattr(processor, "apply_chat_template"):
+                messages = [{"role": "user", "content": prompt}]
+                formatted_prompt = processor.apply_chat_template(
+                    messages, add_generation_prompt=True, tokenize=False
+                )
             result = vlm_generate(
                 model,
                 processor,
-                prompt=prompt,
+                prompt=formatted_prompt,
                 max_tokens=max_tokens,
                 temperature=temperature,
                 verbose=False,
@@ -180,10 +190,16 @@ def run_model(
         try:
             print("Generating with mlx_lm...", flush=True)
             mx.reset_peak_memory()
+            formatted_prompt = prompt
+            if hasattr(processor, "apply_chat_template"):
+                messages = [{"role": "user", "content": prompt}]
+                formatted_prompt = processor.apply_chat_template(
+                    messages, add_generation_prompt=True, tokenize=False
+                )
             output = lm_generate(
                 model,
                 processor,
-                prompt=prompt,
+                prompt=formatted_prompt,
                 max_tokens=max_tokens,
                 sampler=lm_make_sampler(temp=temperature),
                 verbose=False,
