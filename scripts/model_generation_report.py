@@ -158,10 +158,13 @@ def run_model(
             mx.reset_peak_memory()
             formatted_prompt = prompt
             if hasattr(processor, "apply_chat_template"):
-                messages = [{"role": "user", "content": prompt}]
-                formatted_prompt = processor.apply_chat_template(
-                    messages, add_generation_prompt=True, tokenize=False
-                )
+                try:
+                    messages = [{"role": "user", "content": prompt}]
+                    formatted_prompt = processor.apply_chat_template(
+                        messages, add_generation_prompt=True, tokenize=False
+                    )
+                except Exception:
+                    pass
             result = vlm_generate(
                 model,
                 processor,
@@ -192,10 +195,13 @@ def run_model(
             mx.reset_peak_memory()
             formatted_prompt = prompt
             if hasattr(processor, "apply_chat_template"):
-                messages = [{"role": "user", "content": prompt}]
-                formatted_prompt = processor.apply_chat_template(
-                    messages, add_generation_prompt=True, tokenize=False
-                )
+                try:
+                    messages = [{"role": "user", "content": prompt}]
+                    formatted_prompt = processor.apply_chat_template(
+                        messages, add_generation_prompt=True, tokenize=False
+                    )
+                except Exception:
+                    pass
             output = lm_generate(
                 model,
                 processor,
