@@ -70,6 +70,35 @@ def parse_models(values: list[str] | None) -> list[str]:
     return models
 
 
+def normalized_sentences(text: str, *, min_chars: int = 24) -> list[str]:
+    sentences: list[str] = []
+    for block in re.split(r"\n+", text.strip()):
+        block = block.strip()
+        if not block:
+            continue
+        parts = re.split(r"(?<=[.!?])\s+", block)
+        if len(parts) == 1 and not re.search(r"[.!?]$", block):
+            parts = [block]
+        for part in parts:
+            normalized = " ".join(part.split()).strip().lower()
+            if len(normalized) >= min_chars:
+                sentences.append(normalized)
+    return sentences
+
+
+def has_duplicate_sentences(text: str) -> bool:
+    sentences = normalized_sentences(text)
+    if len(sentences) < 2:
+        return False
+
+    counts: dict[str, int] = {}
+    for sentence in sentences:
+        counts[sentence] = counts.get(sentence, 0) + 1
+        if counts[sentence] >= 2:
+            return True
+    return False
+
+
 def looks_coherent(text: str) -> bool:
     text = text.strip()
     if not text:
@@ -96,6 +125,9 @@ def looks_coherent(text: str) -> bool:
         most_common = max(lowered_words.count(word) for word in set(lowered_words))
         if most_common / len(lowered_words) > 0.45:
             return False
+
+    if has_duplicate_sentences(text):
+        return False
 
     repeated_chunk = re.search(r"(.{8,}?)\1\1", text)
     return repeated_chunk is None

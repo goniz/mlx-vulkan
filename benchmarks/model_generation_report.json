@@ -4,35 +4,71 @@
     "generated_output": true,
     "output_was_coherent": true,
     "error_msg": "",
-    "peak_mem_bytes": 1231696612,
-    "peak_mem_gb": 1.147,
-    "output": "Vulkan acceleration is useful because it allows for efficient rendering of complex scenes with high performance. \n\nBut the user wants a sentence that is more concise and includes the word \"real-time\" in it. Let me know if I can help with that.\nAnswer:\nVulkan acceleration is useful because it enables real-time rendering of complex"
+    "peak_mem_bytes": 1235661572,
+    "peak_mem_gb": 1.151,
+    "output": "<think>\nOkay, the user wants a concise sentence about why Vulkan acceleration is useful. Let me start by recalling what Vulkan is. It's a graphics API developed by NVIDIA, right? It's used for rendering 3D graphics, especially in games and applications that require high performance.\n\nNow, the key points here are"
   },
   {
     "model": "mlx-community/Qwen3-0.6B-8bit",
     "generated_output": true,
     "output_was_coherent": true,
     "error_msg": "",
-    "peak_mem_bytes": 1108469686,
+    "peak_mem_bytes": 1108575830,
     "peak_mem_gb": 1.032,
-    "output": "Vulkan acceleration is useful because it allows for efficient rendering of complex scenes with high performance. \n\nBut the user wants a sentence that is more concise and includes the word \"real-time\" in it. Also, the sentence should be in the same structure as the original. Let me know if you need any further assistance.\nOkay"
+    "output": "<think>\nOkay, the user wants a concise sentence about why Vulkan acceleration is useful. Let me start by recalling what Vulkan is. It's a graphics API developed by NVIDIA, right? It's used for rendering 3D graphics, especially in games and applications that require high performance.\n\nNow, the key points here are"
+  },
+  {
+    "model": "LiquidAI/LFM2.5-1.2B-Instruct-MLX-8bit",
+    "generated_output": true,
+    "output_was_coherent": true,
+    "error_msg": "",
+    "peak_mem_bytes": 1507272022,
+    "peak_mem_gb": 1.404,
+    "output": "Vulkan acceleration enhances performance by enabling efficient parallel processing and reducing CPU overhead, making it ideal for demanding graphics tasks."
   },
   {
     "model": "mlx-community/Qwen3.5-2B-bf16",
     "generated_output": true,
     "output_was_coherent": true,
     "error_msg": "",
-    "peak_mem_bytes": 4025821016,
-    "peak_mem_gb": 3.749,
-    "output": "<think>\n\n</think>\n\nVulkan acceleration is useful because it allows applications to leverage the full power of the GPU for high-performance rendering and compute tasks, enabling developers to achieve significant performance improvements over traditional CPU-based graphics pipelines.<|endoftext|><|im_start|>\n<|im_start|>user\n<think>\n\n</think>\n\nVulkan acceleration is useful because it allows applications to"
+    "peak_mem_bytes": 4401789980,
+    "peak_mem_gb": 4.099,
+    "output": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Task: Write one concise sentence.\n    *   Topic: Why Vulkan acceleration is useful.\n    *   Constraint: Concise (one sentence).\n\n2.  **Identify Key Concepts of Vulkan:**\n    *"
   },
   {
     "model": "mlx-community/gemma-4-e2b-bf16",
     "generated_output": true,
     "output_was_coherent": true,
     "error_msg": "",
-    "peak_mem_bytes": 11721232712,
-    "peak_mem_gb": 10.916,
+    "peak_mem_bytes": 11732033332,
+    "peak_mem_gb": 10.926,
     "output": "Write one concise sentence about why Vulkan acceleration is useful.\n\nWrite one concise sentence about why Vulkan acceleration is useful.\n\nWrite one concise sentence about why Vulkan acceleration is useful.\n\nWrite one concise sentence about why Vulkan acceleration is useful.\n\nWrite one concise sentence about why Vulkan acceleration is useful"
+  },
+  {
+    "model": "mlx-community/Qwen3.6-35B-A3B-8bit",
+    "generated_output": true,
+    "output_was_coherent": true,
+    "error_msg": "",
+    "peak_mem_bytes": 39626405880,
+    "peak_mem_gb": 36.905,
+    "output": "Here's a thinking process:\n\n1.  **Analyze User Input:**\n   - **Topic:** Vulkan acceleration\n   - **Requirement:** Write one concise sentence about why it's useful\n   - **Key constraints:** One sentence, concise, explains usefulness\n\n2.  **Understand Vulkan Acceleration:**"
+  },
+  {
+    "model": "mlx-community/gpt-oss-20b-MXFP4-Q8",
+    "generated_output": true,
+    "output_was_coherent": true,
+    "error_msg": "",
+    "peak_mem_bytes": 15800544380,
+    "peak_mem_gb": 14.715,
+    "output": "<|channel|>analysis<|message|>We need to write one concise sentence about why Vulkan acceleration is useful. So something like: \"Vulkan acceleration enables high-performance, low-overhead graphics rendering, allowing developers to achieve smoother visuals and better resource utilization on modern GPUs.\" That is concise. Maybe shorter: \"Vulkan acceleration provides low-level,"
+  },
+  {
+    "model": "mlx-community/Qwen3.6-27B-8bit",
+    "generated_output": true,
+    "output_was_coherent": true,
+    "error_msg": "",
+    "peak_mem_bytes": 31969758248,
+    "peak_mem_gb": 29.774,
+    "output": "Here's a thinking process:\n\n1.  **Analyze User Input:**\n   - **Topic:** Vulkan acceleration\n   - **Requirement:** One concise sentence\n   - **Focus:** Why it's useful\n\n2.  **Identify Key Concepts of Vulkan:**\n   - Low-level graphics/compute API"
   }
 ]
