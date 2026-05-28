@@ -29,8 +29,8 @@ Commands:
   test-py [args]    Run Python tests with pytest
   build-wheel       Build wheel for distribution
   benchmark [quant] [--model MODEL]
-                    Run benchmark (default model: Qwen3-0.6B)
-  update-benchmark  Run benchmarks and update benchmark history/graphs
+                    Run benchmark (default: Qwen3-0.6B; CI also tracks Qwen3.6-35B-A3B-8bit)
+  update-benchmark  Run CI benchmark suite and update benchmark history/graphs
   pr-comments       Fetch non-resolved PR review comments
   run <cmd> [args]  Run a command inside the virtual environment
     generate [quant] [--model MODEL] [--vlm] [args]
@@ -47,10 +47,11 @@ Examples:
   ./dev.sh run python3 --version
   ./dev.sh run python3 scripts/my_script.py
   ./dev.sh build-wheel
-  ./dev.sh benchmark                              # Run Qwen3 with bf16
-  ./dev.sh benchmark 8bit                         # Run Qwen3 with 8-bit quantization
+  ./dev.sh benchmark                              # Run Qwen3-0.6B with bf16
+  ./dev.sh benchmark 8bit                         # Run Qwen3-0.6B with 8-bit quantization
+  ./dev.sh benchmark --model mlx-community/Qwen3.6-35B-A3B-8bit
   ./dev.sh benchmark --model mlx-community/gemma-4-e2b-bf16
-  ./dev.sh update-benchmark # Update benchmark history with current performance
+  ./dev.sh update-benchmark                       # Run Qwen3-0.6B + Qwen3.6-35B-A3B benchmarks
   ./dev.sh profile          # Profile 0.6B model
   ./dev.sh profile 2b       # Profile 2B model
   ./dev.sh pr-comments      # Fetch PR review comments for current branch
