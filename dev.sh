@@ -33,8 +33,8 @@ Commands:
   update-benchmark  Run benchmarks and update benchmark history/graphs
   pr-comments       Fetch non-resolved PR review comments
   run <cmd> [args]  Run a command inside the virtual environment
-  generate [quant] [--model MODEL] [args]
-                    Run mlx_lm.generate (default model: Qwen3-0.6B-bf16)
+    generate [quant] [--model MODEL] [--vlm] [args]
+                    Run mlx_lm.generate (or mlx_vlm.generate with --vlm) (default model: Qwen3-0.6B-bf16)
   model-report [args]
                     Run scripts/model_generation_report.py inside the venv
 
@@ -58,6 +58,7 @@ Examples:
   ./dev.sh generate 8bit    # Run text generation with 8-bit quantization
   ./dev.sh generate --prompt "Hello, how are you?"
   ./dev.sh generate --model mlx-community/Qwen3-0.6B-8bit
+  ./dev.sh generate --vlm --model mlx-community/Qwen2.5-VL-7B-Instruct-8bit
   ./dev.sh model-report --models mlx-community/Qwen3-0.6B-bf16 --max-tokens 16
 EOF
 }
@@ -72,9 +73,11 @@ cmd_init_venv() {
     echo "$(pwd)/mlx/python" > "$PTH_FILE"
     echo "Created pth file: $PTH_FILE"
 
-    uv pip install mlx-lm mlx-vlm
+    uv pip install mlx-lm
+    uv pip install "mlx-vlm @ git+https://github.com/Blaizzy/mlx-vlm"
+    uv pip install "omlx @ git+https://github.com/jundot/omlx"
     # Uninstall the PyPI mlx package to avoid shadowing our local build
-    uv pip uninstall mlx 
+    uv pip uninstall mlx
     uv pip install pytest psutil
     uv pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
     echo "Virtual environment initialized successfully!"
@@ -310,6 +313,7 @@ cmd_profile() {
 cmd_generate() {
     local quant="bf16"
     local model=""
+    local use_vlm=false
     local args=()
 
     while [ $# -gt 0 ]; do
@@ -321,6 +325,10 @@ cmd_generate() {
                 fi
                 model="$2"
                 shift 2
+                ;;
+            --vlm)
+                use_vlm=true
+                shift
                 ;;
             bf16|8bit)
                 quant="$1"
@@ -337,14 +345,20 @@ cmd_generate() {
         model="mlx-community/Qwen3-0.6B-$quant"
     fi
 
-    echo "Running mlx_lm.generate with $model..."
+    local cmd
+    if [ "$use_vlm" = true ]; then
+        cmd="mlx_vlm.generate"
+    else
+        cmd="mlx_lm.generate"
+    fi
+    echo "Running $cmd with $model..."
     
     # Disable OpenMPI ROCm accelerator to prevent segfault on exit
     export OMPI_MCA_accelerator=^rocm
     disable_mpi_for_single_process_benchmark
     
     source virtual-env/bin/activate
-    mlx_lm.generate --model "$model" "${args[@]}"
+    $cmd --model "$model" "${args[@]}"
 }
 
 cmd_model_report() {
