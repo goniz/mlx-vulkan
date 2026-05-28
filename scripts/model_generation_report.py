@@ -39,6 +39,8 @@ DEFAULT_MODELS = [
     "LiquidAI/LFM2.5-1.2B-Instruct-MLX-8bit",
     "mlx-community/Qwen3.5-2B-bf16",
     "mlx-community/gemma-4-e2b-it-bf16",
+    "mlx-community/gemma-4-e4b-it-4bit",
+    "mlx-community/gemma-4-26b-a4b-it-4bit",
     "mlx-community/Qwen3.6-35B-A3B-8bit",
     "mlx-community/gpt-oss-20b-MXFP4-Q8",
     "mlx-community/Qwen3.6-27B-8bit",
