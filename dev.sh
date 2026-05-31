@@ -375,7 +375,11 @@ cmd_generate() {
     disable_mpi_for_single_process_benchmark
     
     source virtual-env/bin/activate
-    mlx_lm.generate --model "$model" "${args[@]}"
+    if [ ${#args[@]} -gt 0 ]; then
+        mlx_lm.generate --model "$model" "${args[@]}"
+    else
+        mlx_lm.generate --model "$model"
+    fi
 }
 
 # Main dispatch
