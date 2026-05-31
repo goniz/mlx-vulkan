@@ -15,8 +15,11 @@
 <text x="72" y="58.0" text-anchor="end" font-family="Inter,Segoe UI,sans-serif" font-size="12" fill="#94a3b8">63.2</text>
 <line x1="82" y1="54" x2="82" y2="326" stroke="#475569"/>
 <line x1="82" y1="326" x2="670" y2="326" stroke="#475569"/>
-<text x="376.0" y="386" text-anchor="end" transform="rotate(-32 376.0 386)" font-family="Inter,Segoe UI,sans-serif" font-size="12" fill="#94a3b8">2026-05-28 17:33</text>
-<circle cx="376.0" cy="83.1" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3.6-35B-A3B-8bit: 56.402</title></circle>
+<text x="82.0" y="386" text-anchor="end" transform="rotate(-32 82.0 386)" font-family="Inter,Segoe UI,sans-serif" font-size="12" fill="#94a3b8">2026-05-28 17:33</text>
+<text x="670.0" y="386" text-anchor="end" transform="rotate(-32 670.0 386)" font-family="Inter,Segoe UI,sans-serif" font-size="12" fill="#94a3b8">2026-05-31 17:12</text>
+<polyline points="82.0,83.1 670.0,92.0" fill="none" stroke="#60a5fa" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="82.0" cy="83.1" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3.6-35B-A3B-8bit: 56.402</title></circle>
+<circle cx="670.0" cy="92.0" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3.6-35B-A3B-8bit: 54.350</title></circle>
 <circle cx="702" cy="76" r="5" fill="#60a5fa"/>
 <text x="716" y="80" font-family="Inter,Segoe UI,sans-serif" font-size="13" fill="#cbd5e1">Qwen3.6-35B-A3B-8bit</text>
 </svg>
