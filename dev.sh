@@ -64,6 +64,40 @@ Examples:
 EOF
 }
 
+configure_darwin_vulkan_icd() {
+    if [[ "$OSTYPE" != "darwin"* ]]; then
+        return
+    fi
+
+    local moltenvk_icd="/opt/homebrew/etc/vulkan/icd.d/MoltenVK_icd.json"
+    if [ ! -f "$moltenvk_icd" ]; then
+        return
+    fi
+
+    # Homebrew's vulkan-tools can leave the mock ICD in the environment. That
+    # lets CMake find Vulkan but creates a mock device which fails during teardown.
+    if [ -z "${VK_ICD_FILENAMES:-}" ] || [[ "${VK_ICD_FILENAMES}" == *"mock_icd"* ]]; then
+        export VK_ICD_FILENAMES="$moltenvk_icd"
+    fi
+}
+
+configure_darwin_vulkan_icd() {
+    if [[ "$OSTYPE" != "darwin"* ]]; then
+        return
+    fi
+
+    local moltenvk_icd="/opt/homebrew/etc/vulkan/icd.d/MoltenVK_icd.json"
+    if [ ! -f "$moltenvk_icd" ]; then
+        return
+    fi
+
+    # Homebrew's vulkan-tools can leave the mock ICD in the environment. That
+    # lets CMake find Vulkan but creates a mock device which fails during teardown.
+    if [ -z "${VK_ICD_FILENAMES:-}" ] || [[ "${VK_ICD_FILENAMES}" == *"mock_icd"* ]]; then
+        export VK_ICD_FILENAMES="$moltenvk_icd"
+    fi
+}
+
 cmd_init_venv() {
     echo "Initializing virtual environment..."
     uv venv --clear --seed --python 3.13 virtual-env
@@ -87,6 +121,8 @@ cmd_init_venv() {
 cmd_build() {
     echo "Running editable build..."
 
+    configure_darwin_vulkan_icd
+
     BUILD_DIR="build"
     PYTHON_BINDINGS_DIR="$(pwd)/mlx/python/mlx"
 
@@ -104,7 +140,7 @@ cmd_build() {
     echo "Building for Python ${PYTHON_VERSION} on ${PLATFORM}..."
     echo "Expected output: ${SO_FILENAME}"
 
-    CMAKE_ARGS="-DCMAKE_BUILD_TYPE=RelWithDebInfo -DMLX_BUILD_VULKAN=ON -DMLX_USE_CCACHE=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+    CMAKE_ARGS="-DCMAKE_BUILD_TYPE=RelWithDebInfo -DMLX_BUILD_METAL=OFF -DMLX_BUILD_VULKAN=ON -DMLX_USE_CCACHE=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
     CMAKE_ARGS="-DMLX_BUILD_TESTS=ON $CMAKE_ARGS"
 
     if command -v ccache >/dev/null 2>&1; then
@@ -124,7 +160,7 @@ cmd_build() {
     fi
 
     echo "Building mlx Python extension and tests..."
-    cmake --build "$BUILD_DIR" --target core tests -j$(nproc)
+    cmake --build "$BUILD_DIR" --target core tests -j
 
     BUILT_SO="${PYTHON_BINDINGS_DIR}/${SO_FILENAME}"
 
@@ -160,6 +196,8 @@ cmd_build() {
 cmd_build_wheel() {
     echo "Building wheel..."
 
+    configure_darwin_vulkan_icd
+
     source virtual-env/bin/activate
 
     if [ "${OPENCODE:-0}" = "1" ]; then
@@ -194,6 +232,8 @@ cmd_build_wheel() {
 }
 
 cmd_test_cpp() {
+    configure_darwin_vulkan_icd
+
     local args=()
     for arg in "$@"; do
         args+=("${arg/--fail-after/--abort-after}")
@@ -203,6 +243,8 @@ cmd_test_cpp() {
 }
 
 cmd_test_py() {
+    configure_darwin_vulkan_icd
+
     # Disable OpenMPI ROCm accelerator to prevent segfault on exit
     export OMPI_MCA_accelerator=^rocm
     disable_mpi_for_single_process_benchmark
@@ -218,6 +260,8 @@ Usage: ./dev.sh run <command> [args...]
 Example: ./dev.sh run python3 --version" >&2
         exit 1
     fi
+
+    configure_darwin_vulkan_icd
 
     # Disable OpenMPI ROCm accelerator to prevent segfault on exit
     export OMPI_MCA_accelerator=^rocm
@@ -235,6 +279,8 @@ disable_mpi_for_single_process_benchmark() {
 }
 
 cmd_benchmark() {
+    configure_darwin_vulkan_icd
+
     local quant="bf16"
     local model=""
 
@@ -270,6 +316,7 @@ cmd_benchmark() {
 }
 
 cmd_update_benchmark() {
+    configure_darwin_vulkan_icd
     disable_mpi_for_single_process_benchmark
     source virtual-env/bin/activate
     python scripts/update_benchmark.py "$@"
@@ -281,6 +328,8 @@ cmd_pr_comments() {
 }
 
 cmd_profile() {
+    configure_darwin_vulkan_icd
+
     local model_size="${1:-0.6b}"
     
     case "$model_size" in
@@ -312,6 +361,8 @@ cmd_profile() {
 }
 
 cmd_generate() {
+    configure_darwin_vulkan_icd
+
     local quant="bf16"
     local model=""
     local use_vlm=false
@@ -359,7 +410,11 @@ cmd_generate() {
     disable_mpi_for_single_process_benchmark
     
     source virtual-env/bin/activate
-    $cmd --model "$model" "${args[@]}"
+    if [ ${#args[@]} -gt 0 ]; then
+        $cmd --model "$model" "${args[@]}"
+    else
+        $cmd --model "$model"
+    fi
 }
 
 cmd_model_report() {
