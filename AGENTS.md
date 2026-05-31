@@ -261,3 +261,55 @@ tests/             # C++ unit tests
 
 ## Other
 if you encounter issues during work that are out of scope- spawn a subagent that will create a github issue on goniz/mlx-vulkan for later fix
+
+## Cursor Cloud specific instructions
+
+### Environment overview
+
+The Cloud VM has no physical GPU. A software Vulkan driver (lavapipe/Mesa) is installed so that `vk::createInstance` succeeds and all CPU + software-GPU code paths work. Performance-sensitive benchmarks and real GPU tests are not meaningful on this driver.
+
+### Required environment variables
+
+Always export these before running builds, tests, or the application:
+
+```bash
+export PATH="$HOME/.local/bin:$PATH"       # uv lives here
+export VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json  # lavapipe software Vulkan
+export DISPLAY=""                            # no X display in Cloud VM
+export CC=gcc CXX=g++                        # clang on this image can't find C++ stdlib headers; use gcc/g++
+```
+
+### Build gotcha — OOM on large generated shader files
+
+The `mul_mm.comp.cpp` generated shader file is ~1.2 GB. Compiling it with `g++ -O2` exceeds the VM's 15 GB RAM. After the first `./dev.sh build` fails on this file, work around it by compiling that single file as C with `-O0`:
+
+```bash
+cd /workspace/build/mlx/backend/vulkan
+echo -e '#include <stdint.h>\n#include <stddef.h>' > vulkan_shaders.h
+gcc -x c -O0 -DNDEBUG -fPIC -I. -include vulkan_shaders.h \
+    -c <(tail -n +2 mul_mm.comp.cpp) \
+    -o /workspace/build/CMakeFiles/mlx.dir/mlx/backend/vulkan/mul_mm.comp.cpp.o
+```
+
+Then re-run `./dev.sh build` (or `cmake --build build --target core tests -j2`) to finish the remaining compilation and linking.
+
+### Running tests
+
+```bash
+DEVICE=cpu ./dev.sh test-cpp          # C++ tests (249 tests, all pass)
+DEVICE=cpu ./dev.sh test-py           # Python tests (699 pass, 13 skip, ~8 min)
+```
+
+### Running the application
+
+```bash
+./dev.sh generate --prompt "Hello"    # Text generation (very slow on lavapipe, ~4 min for 100 tokens)
+```
+
+### Lint
+
+Pre-commit config lives in the `mlx/` submodule. Run from there:
+
+```bash
+cd /workspace/mlx && pre-commit run --all-files
+```
