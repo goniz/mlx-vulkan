@@ -4,12 +4,14 @@
 import argparse
 import csv
 import html
+import json
 import math
 import os
 import re
 import subprocess
 import sys
 from collections import defaultdict
+from collections.abc import Callable
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -18,12 +20,29 @@ BENCHMARKS_DIR = ROOT / "benchmarks"
 RESULTS_CSV = BENCHMARKS_DIR / "results.csv"
 BENCHMARK_README = BENCHMARKS_DIR / "README.md"
 ROOT_README = ROOT / "README.md"
-PROMPT_GRAPH = BENCHMARKS_DIR / "prompt_tps.svg"
-GENERATION_GRAPH = BENCHMARKS_DIR / "generation_tps.svg"
+MODEL_REPORT_JSON = BENCHMARKS_DIR / "model_generation_report.json"
 
 DEFAULT_VARIANTS = [
     ("mlx-community/Qwen3-0.6B-bf16", "bf16"),
     ("mlx-community/Qwen3-0.6B-8bit", "8bit"),
+    ("mlx-community/Qwen3.6-35B-A3B-8bit", "8bit"),
+]
+
+GRAPH_GROUPS = [
+    {
+        "slug": "qwen3-0.6b",
+        "title_suffix": "Qwen3-0.6B",
+        "prompt_graph": BENCHMARKS_DIR / "prompt_tps.svg",
+        "generation_graph": BENCHMARKS_DIR / "generation_tps.svg",
+        "match": lambda model_name: "Qwen3-0.6B" in model_name,
+    },
+    {
+        "slug": "qwen3.6-35b-a3b",
+        "title_suffix": "Qwen3.6-35B-A3B",
+        "prompt_graph": BENCHMARKS_DIR / "prompt_tps_qwen3_6_35b_a3b.svg",
+        "generation_graph": BENCHMARKS_DIR / "generation_tps_qwen3_6_35b_a3b.svg",
+        "match": lambda model_name: "Qwen3.6-35B-A3B" in model_name,
+    },
 ]
 
 FIELDNAMES = [
@@ -133,6 +152,33 @@ def run_benchmark(
     return result.stdout
 
 
+def run_model_generation_report(max_tokens: int) -> None:
+    print("Running model generation report...")
+
+    env = os.environ.copy()
+    env["OMPI_MCA_accelerator"] = "^rocm"
+    env.setdefault("MLX_MPI_LIBNAME", "/dev/null")
+
+    cmd = [
+        sys.executable,
+        "scripts/model_generation_report.py",
+        "--max-tokens",
+        str(max_tokens),
+        "--json-output",
+        str(MODEL_REPORT_JSON),
+    ]
+    result = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, env=env)
+
+    if result.stdout:
+        print(result.stdout, end="")
+    if result.stderr:
+        print(result.stderr, end="", file=sys.stderr)
+    if result.returncode != 0:
+        raise RuntimeError(
+            f"Model generation report failed with exit code {result.returncode}"
+        )
+
+
 def parse_benchmark_output(output: str) -> dict[str, str]:
     timing = TIMING_RE.search(output)
     averages = AVERAGES_RE.search(output)
@@ -217,8 +263,17 @@ def timestamp_label(timestamp: str) -> str:
     return timestamp.replace("T", " ").replace("Z", "")[:16]
 
 
+def filter_rows_for_group(
+    rows: list[dict[str, str]], match: Callable[[str], bool]
+) -> list[dict[str, str]]:
+    return [row for row in rows if match(row.get("model_name", ""))]
+
+
 def generate_svg(
-    rows: list[dict[str, str]], metric: str, title: str, output_path: Path
+    rows: list[dict[str, str]],
+    metric: str,
+    title: str,
+    output_path: Path,
 ) -> None:
     points_by_label: dict[str, list[tuple[str, str, float]]] = defaultdict(list)
     run_timestamps: dict[str, str] = {}
@@ -353,48 +408,125 @@ def latest_table(rows: list[dict[str, str]]) -> str:
     return "\n".join(lines)
 
 
+def markdown_cell(value: object) -> str:
+    text = str(value or "")
+    return text.replace("\n", " ").replace("|", "\\|")
+
+
+def status_label(value: bool) -> str:
+    return "pass" if value else "fail"
+
+
+def load_model_report() -> list[dict[str, object]]:
+    if not MODEL_REPORT_JSON.exists():
+        return []
+    try:
+        data = json.loads(MODEL_REPORT_JSON.read_text())
+    except json.JSONDecodeError:
+        return []
+    if not isinstance(data, list):
+        return []
+    return [row for row in data if isinstance(row, dict)]
+
+
+def model_output_preview(output: object, limit: int = 96) -> str:
+    text = " ".join(str(output or "").split())
+    if len(text) <= limit:
+        return text
+    return text[: limit - 3].rstrip() + "..."
+
+
+def model_report_table(rows: list[dict[str, object]]) -> str:
+    if not rows:
+        return "No model generation report recorded yet."
+
+    lines = [
+        "| Model | Output | Coherent | Peak memory (GB) | Sample | Error |",
+        "| --- | --- | --- | ---: | --- | --- |",
+    ]
+    for row in rows:
+        lines.append(
+            "| {model} | {generated} | {coherent} | {memory} | {sample} | {error} |".format(
+                model=markdown_cell(row.get("model", "")),
+                generated=status_label(bool(row.get("generated_output"))),
+                coherent=status_label(bool(row.get("output_was_coherent"))),
+                memory=markdown_cell(row.get("peak_mem_gb", "n/a")),
+                sample=markdown_cell(model_output_preview(row.get("output", ""))),
+                error=markdown_cell(row.get("error_msg", "")),
+            )
+        )
+    return "\n".join(lines)
+
+
+def graph_sections(prefix: str = "") -> str:
+    sections = []
+    for group in GRAPH_GROUPS:
+        prompt_name = group["prompt_graph"].name
+        generation_name = group["generation_graph"].name
+        title_suffix = group["title_suffix"]
+        sections.extend(
+            [
+                f"## {title_suffix} Prompt Throughput",
+                "",
+                f"![{title_suffix} prompt TPS]({prefix}{prompt_name})",
+                "",
+                f"## {title_suffix} Generation Throughput",
+                "",
+                f"![{title_suffix} generation TPS]({prefix}{generation_name})",
+                "",
+            ]
+        )
+    return "\n".join(sections).rstrip()
+
+
 def build_benchmark_readme(rows: list[dict[str, str]]) -> str:
+    model_rows = load_model_report()
     return f"""# Vulkan Benchmark History
 
 This file is generated by `scripts/update_benchmark.py`. Do not edit it by hand.
 
 Benchmark data is stored in `results.csv`. Graphs are regenerated from that file whenever `./dev.sh update-benchmark` runs.
 
-## Prompt Throughput
-
-![Prompt TPS](prompt_tps.svg)
-
-## Generation Throughput
-
-![Generation TPS](generation_tps.svg)
+{graph_sections()}
 
 ## Latest Results
 
 {latest_table(rows)}
+
+## Model Generation Report
+
+Generation smoke tests run with `scripts/model_generation_report.py` through `./dev.sh update-benchmark`.
+
+{model_report_table(model_rows)}
 """
 
 
 def build_root_benchmark_section(rows: list[dict[str, str]]) -> str:
+    model_rows = load_model_report()
     return f"""## Benchmark Results
 
 CI benchmark history from AMD Radeon 8060S (Strix Halo). Detailed data is in `benchmarks/results.csv`.
 
-![Prompt TPS](benchmarks/prompt_tps.svg)
-
-![Generation TPS](benchmarks/generation_tps.svg)
+{graph_sections("benchmarks/")}
 
 ### Latest Results
 
 {latest_table(rows)}
+
+### Model Generation Report
+
+Serial generation smoke tests validate that each model produces coherent output on Vulkan.
+
+{model_report_table(model_rows)}
 """
 
 
 def replace_benchmark_section(readme: str, section: str) -> str:
-    pattern = re.compile(
-        r"^## Benchmark Results\n.*?(?=^##\s|\Z)", re.MULTILINE | re.DOTALL
-    )
-    if pattern.search(readme):
-        return pattern.sub(section.rstrip() + "\n", readme)
+    pattern = re.compile(r"^## Benchmark Results\n.*", re.MULTILINE | re.DOTALL)
+    match = pattern.search(readme)
+    if match:
+        prefix = readme[: match.start()].rstrip()
+        return prefix + "\n\n" + section.rstrip() + "\n"
     return readme.rstrip() + "\n\n" + section.rstrip() + "\n"
 
 
@@ -402,10 +534,21 @@ def regenerate_reports() -> None:
     BENCHMARKS_DIR.mkdir(parents=True, exist_ok=True)
     write_empty_results_file()
     rows = load_rows()
-    generate_svg(rows, "prompt_tps", "Prompt throughput (tokens/sec)", PROMPT_GRAPH)
-    generate_svg(
-        rows, "generation_tps", "Generation throughput (tokens/sec)", GENERATION_GRAPH
-    )
+    for group in GRAPH_GROUPS:
+        group_rows = filter_rows_for_group(rows, group["match"])
+        title_suffix = group["title_suffix"]
+        generate_svg(
+            group_rows,
+            "prompt_tps",
+            f"{title_suffix} prompt throughput (tokens/sec)",
+            group["prompt_graph"],
+        )
+        generate_svg(
+            group_rows,
+            "generation_tps",
+            f"{title_suffix} generation throughput (tokens/sec)",
+            group["generation_graph"],
+        )
     BENCHMARK_README.write_text(build_benchmark_readme(rows))
 
     if ROOT_README.exists():
@@ -427,6 +570,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--prompt-tokens", type=int, default=4096)
     parser.add_argument("--generation-tokens", type=int, default=128)
     parser.add_argument("--batch-size", type=int, default=1)
+    parser.add_argument("--model-report-tokens", type=int, default=64)
+    parser.add_argument(
+        "--skip-model-report",
+        action="store_true",
+        help="Do not run scripts/model_generation_report.py before regenerating docs.",
+    )
     return parser.parse_args()
 
 
@@ -454,6 +603,9 @@ def main() -> int:
             )
             print()
         append_rows(rows)
+
+    if not args.refresh_only and not args.skip_model_report:
+        run_model_generation_report(args.model_report_tokens)
 
     regenerate_reports()
     print(f"Updated {RESULTS_CSV.relative_to(ROOT)}")

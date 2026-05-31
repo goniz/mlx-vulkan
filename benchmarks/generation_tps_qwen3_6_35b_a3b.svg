@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="420" viewBox="0 0 900 420" role="img" aria-label="Qwen3.6-35B-A3B generation throughput (tokens/sec)">
+<rect width="900" height="420" fill="#0f172a" rx="12"/>
+<text x="82" y="32" font-family="Inter,Segoe UI,sans-serif" font-size="22" font-weight="700" fill="#f8fafc">Qwen3.6-35B-A3B generation throughput (tokens/sec)</text>
+<line x1="82" y1="326.0" x2="670" y2="326.0" stroke="#1e293b" stroke-width="1"/>
+<text x="72" y="330.0" text-anchor="end" font-family="Inter,Segoe UI,sans-serif" font-size="12" fill="#94a3b8">0.0</text>
+<line x1="82" y1="271.6" x2="670" y2="271.6" stroke="#1e293b" stroke-width="1"/>
+<text x="72" y="275.6" text-anchor="end" font-family="Inter,Segoe UI,sans-serif" font-size="12" fill="#94a3b8">1.9</text>
+<line x1="82" y1="217.2" x2="670" y2="217.2" stroke="#1e293b" stroke-width="1"/>
+<text x="72" y="221.2" text-anchor="end" font-family="Inter,Segoe UI,sans-serif" font-size="12" fill="#94a3b8">3.7</text>
+<line x1="82" y1="162.8" x2="670" y2="162.8" stroke="#1e293b" stroke-width="1"/>
+<text x="72" y="166.8" text-anchor="end" font-family="Inter,Segoe UI,sans-serif" font-size="12" fill="#94a3b8">5.6</text>
+<line x1="82" y1="108.4" x2="670" y2="108.4" stroke="#1e293b" stroke-width="1"/>
+<text x="72" y="112.4" text-anchor="end" font-family="Inter,Segoe UI,sans-serif" font-size="12" fill="#94a3b8">7.4</text>
+<line x1="82" y1="54.0" x2="670" y2="54.0" stroke="#1e293b" stroke-width="1"/>
+<text x="72" y="58.0" text-anchor="end" font-family="Inter,Segoe UI,sans-serif" font-size="12" fill="#94a3b8">9.3</text>
+<line x1="82" y1="54" x2="82" y2="326" stroke="#475569"/>
+<line x1="82" y1="326" x2="670" y2="326" stroke="#475569"/>
+<text x="376.0" y="386" text-anchor="end" transform="rotate(-32 376.0 386)" font-family="Inter,Segoe UI,sans-serif" font-size="12" fill="#94a3b8">2026-05-28 17:33</text>
+<circle cx="376.0" cy="83.1" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3.6-35B-A3B-8bit: 8.268</title></circle>
+<circle cx="702" cy="76" r="5" fill="#60a5fa"/>
+<text x="716" y="80" font-family="Inter,Segoe UI,sans-serif" font-size="13" fill="#cbd5e1">Qwen3.6-35B-A3B-8bit</text>
+</svg>

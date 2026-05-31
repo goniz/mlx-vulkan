@@ -14,6 +14,7 @@ set -euo pipefail
 #   benchmark     Run benchmark with optional model override
 #   profile       Profile Qwen3 model inference with detailed tracing
 #   generate      Run mlx_lm.generate with optional model override
+#   model-report  Run serial generation smoke tests across models
 
 show_help() {
     cat << EOF
@@ -28,12 +29,14 @@ Commands:
   test-py [args]    Run Python tests with pytest
   build-wheel       Build wheel for distribution
   benchmark [quant] [--model MODEL]
-                    Run benchmark (default model: Qwen3-0.6B)
-  update-benchmark  Run benchmarks and update benchmark history/graphs
+                    Run benchmark (default: Qwen3-0.6B; CI also tracks Qwen3.6-35B-A3B-8bit)
+  update-benchmark  Run CI benchmark suite and update benchmark history/graphs
   pr-comments       Fetch non-resolved PR review comments
   run <cmd> [args]  Run a command inside the virtual environment
-  generate [quant] [--model MODEL] [args]
-                    Run mlx_lm.generate (default model: Qwen3-0.6B-bf16)
+    generate [quant] [--model MODEL] [--vlm] [args]
+                    Run mlx_lm.generate (or mlx_vlm.generate with --vlm) (default model: Qwen3-0.6B-bf16)
+  model-report [args]
+                    Run scripts/model_generation_report.py inside the venv
 
 Examples:
   ./dev.sh init-venv
@@ -44,10 +47,11 @@ Examples:
   ./dev.sh run python3 --version
   ./dev.sh run python3 scripts/my_script.py
   ./dev.sh build-wheel
-  ./dev.sh benchmark                              # Run Qwen3 with bf16
-  ./dev.sh benchmark 8bit                         # Run Qwen3 with 8-bit quantization
+  ./dev.sh benchmark                              # Run Qwen3-0.6B with bf16
+  ./dev.sh benchmark 8bit                         # Run Qwen3-0.6B with 8-bit quantization
+  ./dev.sh benchmark --model mlx-community/Qwen3.6-35B-A3B-8bit
   ./dev.sh benchmark --model mlx-community/gemma-4-e2b-bf16
-  ./dev.sh update-benchmark # Update benchmark history with current performance
+  ./dev.sh update-benchmark                       # Run Qwen3-0.6B + Qwen3.6-35B-A3B benchmarks
   ./dev.sh profile          # Profile 0.6B model
   ./dev.sh profile 2b       # Profile 2B model
   ./dev.sh pr-comments      # Fetch PR review comments for current branch
@@ -55,7 +59,26 @@ Examples:
   ./dev.sh generate 8bit    # Run text generation with 8-bit quantization
   ./dev.sh generate --prompt "Hello, how are you?"
   ./dev.sh generate --model mlx-community/Qwen3-0.6B-8bit
+  ./dev.sh generate --vlm --model mlx-community/Qwen2.5-VL-7B-Instruct-8bit
+  ./dev.sh model-report --models mlx-community/Qwen3-0.6B-bf16 --max-tokens 16
 EOF
+}
+
+configure_darwin_vulkan_icd() {
+    if [[ "$OSTYPE" != "darwin"* ]]; then
+        return
+    fi
+
+    local moltenvk_icd="/opt/homebrew/etc/vulkan/icd.d/MoltenVK_icd.json"
+    if [ ! -f "$moltenvk_icd" ]; then
+        return
+    fi
+
+    # Homebrew's vulkan-tools can leave the mock ICD in the environment. That
+    # lets CMake find Vulkan but creates a mock device which fails during teardown.
+    if [ -z "${VK_ICD_FILENAMES:-}" ] || [[ "${VK_ICD_FILENAMES}" == *"mock_icd"* ]]; then
+        export VK_ICD_FILENAMES="$moltenvk_icd"
+    fi
 }
 
 configure_darwin_vulkan_icd() {
@@ -85,12 +108,13 @@ cmd_init_venv() {
     echo "$(pwd)/mlx/python" > "$PTH_FILE"
     echo "Created pth file: $PTH_FILE"
 
-    uv pip install mlx-lm mlx-vlm
+    uv pip install mlx-lm
+    uv pip install "mlx-vlm @ git+https://github.com/Blaizzy/mlx-vlm"
+    uv pip install "omlx @ git+https://github.com/jundot/omlx"
     # Uninstall the PyPI mlx package to avoid shadowing our local build
-    uv pip uninstall mlx 
+    uv pip uninstall mlx
     uv pip install pytest psutil
-    # Uncomment if you need PyTorch with ROCm support:
-    # uv pip install --pre torch torchvision --index-url https://download.pytorch.org/whl/nightly/rocm7.2
+    uv pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
     echo "Virtual environment initialized successfully!"
 }
 
@@ -341,6 +365,7 @@ cmd_generate() {
 
     local quant="bf16"
     local model=""
+    local use_vlm=false
     local args=()
 
     while [ $# -gt 0 ]; do
@@ -352,6 +377,10 @@ cmd_generate() {
                 fi
                 model="$2"
                 shift 2
+                ;;
+            --vlm)
+                use_vlm=true
+                shift
                 ;;
             bf16|8bit)
                 quant="$1"
@@ -368,7 +397,13 @@ cmd_generate() {
         model="mlx-community/Qwen3-0.6B-$quant"
     fi
 
-    echo "Running mlx_lm.generate with $model..."
+    local cmd
+    if [ "$use_vlm" = true ]; then
+        cmd="mlx_vlm.generate"
+    else
+        cmd="mlx_lm.generate"
+    fi
+    echo "Running $cmd with $model..."
     
     # Disable OpenMPI ROCm accelerator to prevent segfault on exit
     export OMPI_MCA_accelerator=^rocm
@@ -376,10 +411,19 @@ cmd_generate() {
     
     source virtual-env/bin/activate
     if [ ${#args[@]} -gt 0 ]; then
-        mlx_lm.generate --model "$model" "${args[@]}"
+        $cmd --model "$model" "${args[@]}"
     else
-        mlx_lm.generate --model "$model"
+        $cmd --model "$model"
     fi
+}
+
+cmd_model_report() {
+    # Disable OpenMPI ROCm accelerator to prevent segfault on exit
+    export OMPI_MCA_accelerator=^rocm
+    disable_mpi_for_single_process_benchmark
+
+    source virtual-env/bin/activate
+    python scripts/model_generation_report.py "$@"
 }
 
 # Main dispatch
@@ -424,6 +468,9 @@ case "$COMMAND" in
         ;;
     generate)
         cmd_generate "$@"
+        ;;
+    model-report)
+        cmd_model_report "$@"
         ;;
     help|--help|-h)
         show_help
