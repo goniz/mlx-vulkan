@@ -25,10 +25,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Initialize mlx submodule only
+      - name: Initialize MLX submodules
         run: |
-          git submodule init mlx
-          git submodule update mlx
+          git submodule init mlx mlx-lm
+          git submodule update mlx mlx-lm
 
       - name: Setup uv
         uses: astral-sh/setup-uv@v5

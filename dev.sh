@@ -108,9 +108,11 @@ cmd_init_venv() {
     echo "$(pwd)/mlx/python" > "$PTH_FILE"
     echo "Created pth file: $PTH_FILE"
 
-    uv pip install mlx-lm
     uv pip install "mlx-vlm @ git+https://github.com/Blaizzy/mlx-vlm"
     uv pip install "omlx @ git+https://github.com/jundot/omlx"
+    # Install local mlx-lm after dependent packages so transitive requirements
+    # cannot replace it with the upstream PyPI/GitHub package.
+    uv pip install -e ./mlx-lm
     # Uninstall the PyPI mlx package to avoid shadowing our local build
     uv pip uninstall mlx
     uv pip install pytest psutil
