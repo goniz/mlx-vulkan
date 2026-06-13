@@ -25,9 +25,9 @@ CI benchmark history from AMD Radeon 8060S (Strix Halo). Detailed data is in `be
 
 | Model | Bits | Prompt TPS | Generation TPS | Peak memory (GB) | mlx-vulkan | mlx | Run |
 | --- | --- | ---: | ---: | ---: | --- | --- | --- |
-| mlx-community/Qwen3-0.6B-8bit | 8bit | 1360.581 | 87.609 | 2.056 | c0c3da7 | 5d618c8 | [run](https://github.com/goniz/mlx-vulkan/actions/runs/26937061971) |
-| mlx-community/Qwen3-0.6B-bf16 | bf16 | 2410.127 | 65.748 | 2.614 | c0c3da7 | 5d618c8 | [run](https://github.com/goniz/mlx-vulkan/actions/runs/26937061971) |
-| mlx-community/Qwen3.6-35B-A3B-8bit | 8bit | 121.011 | 21.135 | 40.350 | c0c3da7 | 5d618c8 | [run](https://github.com/goniz/mlx-vulkan/actions/runs/26937061971) |
+| mlx-community/Qwen3-0.6B-8bit | 8bit | 1477.926 | 87.524 | 2.056 | d1c89c7 | 7581295 | [run](https://github.com/goniz/mlx-vulkan/actions/runs/27480356548) |
+| mlx-community/Qwen3-0.6B-bf16 | bf16 | 2860.579 | 65.949 | 2.614 | d1c89c7 | 7581295 | [run](https://github.com/goniz/mlx-vulkan/actions/runs/27480356548) |
+| mlx-community/Qwen3.6-35B-A3B-8bit | 8bit | 124.666 | 21.113 | 40.349 | d1c89c7 | 7581295 | [run](https://github.com/goniz/mlx-vulkan/actions/runs/27480356548) |
 
 ### Model Generation Report
 
@@ -35,9 +35,9 @@ Serial generation smoke tests validate that each model produces coherent output 
 
 | Model | Output | Coherent | Peak memory (GB) | Sample | Error |
 | --- | --- | --- | ---: | --- | --- |
-| mlx-community/Qwen3-0.6B-bf16 | pass | pass | 1.148 | <think> Okay, the user wants a concise sentence about why Vulkan acceleration is useful. Let... |  |
+| mlx-community/Qwen3-0.6B-bf16 | pass | pass | 1.147 | <think> Okay, the user wants a concise sentence about why Vulkan acceleration is useful. Let... |  |
 | mlx-community/Qwen3-0.6B-8bit | pass | pass | 1.032 | <think> Okay, the user wants a concise sentence about why Vulkan acceleration is useful. Let... |  |
-| LiquidAI/LFM2.5-1.2B-Instruct-MLX-8bit | pass | pass | 1.396 | Vulkan acceleration enhances performance by enabling efficient parallel processing and reduci... |  |
+| LiquidAI/LFM2.5-1.2B-Instruct-MLX-8bit | pass | pass | 1.389 | Vulkan acceleration enhances performance by enabling efficient parallel processing and reduci... |  |
 | mlx-community/Qwen3.5-2B-bf16 | pass | pass | 4.529 | Thinking Process: 1. **Analyze the Request:** * Task: Write one concise sentence. * Topic: Wh... |  |
 | mlx-community/gemma-4-e2b-it-bf16 | pass | pass | 10.005 | <\|channel>thought 1. **Analyze the Request:** The user wants a *concise sentence* explaining... |  |
 | mlx-community/gemma-4-e4b-it-4bit | pass | pass | 5.19 | <\|channel>thought 1. **Analyze the request:** The user wants *one concise sentence* explainin... |  |
