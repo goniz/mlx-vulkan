@@ -31,8 +31,8 @@
     "generated_output": true,
     "output_was_coherent": true,
     "error_msg": "",
-    "peak_mem_bytes": 4863274112,
-    "peak_mem_gb": 4.529,
+    "peak_mem_bytes": 4316981776,
+    "peak_mem_gb": 4.021,
     "output": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Task: Write one concise sentence.\n    *   Topic: Why Vulkan acceleration is useful.\n    *   Constraint: Concise (one sentence).\n\n2.  **Identify Key Concepts of Vulkan:**\n    *"
   },
   {
@@ -42,7 +42,7 @@
     "error_msg": "",
     "peak_mem_bytes": 10742334600,
     "peak_mem_gb": 10.005,
-    "output": "<|channel>thought\n1.  **Analyze the Request:** The user wants a *concise sentence* explaining *why Vulkan acceleration is useful*.\n\n2.  **Identify Key Concepts:**\n    *   Vulkan: A low-level, explicit graphics and compute API.\n    *   Acceleration: Speeding"
+    "output": "<|channel>thoughting process:1.  **Analyze Request:** The user wants \"one concise sentence\" explaining about the usefulness of \"Vulkan acceleration.\"\n\n2.  **Identify Core Concept (Vulkan Acceleration):** What is Vulkan acceleration? It's a technique (often involving Vul/Vulkan/Wave"
   },
   {
     "model": "mlx-community/gemma-4-e4b-it-4bit",
@@ -78,7 +78,7 @@
     "error_msg": "",
     "peak_mem_bytes": 14698968266,
     "peak_mem_gb": 13.689,
-    "output": "<|channel|>analysis<|message|>We need to write one concise sentence about why Vulkan acceleration is useful. So something like: \"Vulkan acceleration enables high-performance, low-overhead graphics rendering, improving frame rates and reducing CPU bottlenecks.\" That is concise. Or \"Vulkan acceleration allows developers to harness GPU power efficiently, boosting performance"
+    "output": "<|channel|>analysis<|message|>We need to write one concise sentence about why Vulkan acceleration is useful. So something like: \"Vulkan acceleration enables high-performance, low-overhead graphics rendering, allowing developers to achieve smoother visuals and better resource utilization on modern GPUs.\" That is concise. Maybe shorter: \"Vulkan acceleration provides low-level,"
   },
   {
     "model": "mlx-community/Qwen3.6-27B-8bit",
