@@ -1,6 +1,17 @@
 # mlx-vulkan
 Home for the Development of MLX Vulkan backend
 
+The motivation for this side project is to make MLX work on my Strix Halo machine since I fall in love with MLX and the MLX Community 
+
+## Acknowledgments
+
+The Vulkan compute shaders in `mlx/mlx/backend/vulkan/kernels/` were originally taken from [llama.cpp](https://github.com/ggml-org/llama.cpp) (MIT License, copyright The ggml authors) and modified for use in mlx-vulkan.
+
+## AI-Assisted Development
+
+This project was developed with the assistance of LLM coding agents,
+primarily GPT-5.5, under heavy human supervision and steering.
+
 ## Benchmark Results
 
 CI benchmark history from AMD Radeon 8060S (Strix Halo). Detailed data is in `benchmarks/results.csv`.
