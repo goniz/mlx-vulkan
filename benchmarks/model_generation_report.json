@@ -4,8 +4,8 @@
     "generated_output": true,
     "output_was_coherent": true,
     "error_msg": "",
-    "peak_mem_bytes": 1226462432,
-    "peak_mem_gb": 1.142,
+    "peak_mem_bytes": 1227740344,
+    "peak_mem_gb": 1.143,
     "output": "<think>\nOkay, the user wants a concise sentence about why Vulkan acceleration is useful. Let me start by recalling what Vulkan is. It's a graphics API developed by NVIDIA, right? It's used for rendering 3D graphics, especially in games and applications that require high performance.\n\nNow, the key points here are"
   },
   {
@@ -13,8 +13,8 @@
     "generated_output": true,
     "output_was_coherent": true,
     "error_msg": "",
-    "peak_mem_bytes": 671585468,
-    "peak_mem_gb": 0.625,
+    "peak_mem_bytes": 669815960,
+    "peak_mem_gb": 0.624,
     "output": "<think>\nOkay, the user wants a concise sentence about why Vulkan acceleration is useful. Let me start by recalling what Vulkan is. It's a graphics API developed by NVIDIA, right? It's known for its efficiency in rendering 3D graphics, especially in games and applications that require high performance.\n\nNow, the key"
   },
   {
@@ -22,8 +22,8 @@
     "generated_output": true,
     "output_was_coherent": true,
     "error_msg": "",
-    "peak_mem_bytes": 1270234928,
-    "peak_mem_gb": 1.183,
+    "peak_mem_bytes": 1270827812,
+    "peak_mem_gb": 1.184,
     "output": "Vulkan acceleration enhances performance by enabling efficient parallel processing and reducing CPU overhead, making it ideal for demanding graphics tasks."
   },
   {
@@ -31,8 +31,8 @@
     "generated_output": true,
     "output_was_coherent": true,
     "error_msg": "",
-    "peak_mem_bytes": 3801568028,
-    "peak_mem_gb": 3.54,
+    "peak_mem_bytes": 3801871168,
+    "peak_mem_gb": 3.541,
     "output": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Task: Write one concise sentence.\n    *   Topic: Why Vulkan acceleration is useful.\n    *   Constraint: Concise (one sentence).\n\n2.  **Identify Key Concepts of Vulkan:**\n    *"
   },
   {
@@ -40,8 +40,8 @@
     "generated_output": true,
     "output_was_coherent": true,
     "error_msg": "",
-    "peak_mem_bytes": 9273011838,
-    "peak_mem_gb": 8.636,
+    "peak_mem_bytes": 9274300330,
+    "peak_mem_gb": 8.637,
     "output": "<|channel>thoughting process:1.  **Analyze Request:** The user wants \"one concise sentence\" explaining about the usefulness of \"Vulkan acceleration.\"\n\n2.  **Identify Core Concept (Vulkan Acceleration):** What is Vulkan acceleration? It's a technique (often involving Vul/Vulkan/Wave"
   },
   {
@@ -49,17 +49,17 @@
     "generated_output": true,
     "output_was_coherent": true,
     "error_msg": "",
-    "peak_mem_bytes": 12456765110,
-    "peak_mem_gb": 11.601,
-    "output": "<|channel>thought\n1.  **Analyze the request:** The user wants *one concise sentence* explaining the usefulness of Vulkan acceleration.\n2.  **Identify the core function of Vulkan:** Vulkan is a modern, low-overhead graphics API (like DirectX 12 or Metal). Its primary benefit is"
+    "peak_mem_bytes": 12420691638,
+    "peak_mem_gb": 11.568,
+    "output": "<|channel>thought\n1.  **Analyze the request:** The user wants *one concise sentence* explaining the usefulness of Vulkan acceleration.\n2.  **Identify the core function of Vulkan:** Vulkan is a modern, low-overhead, high-performance graphics and compute API. It allows developers to efficiently utilize"
   },
   {
     "model": "mlx-community/gemma-4-26b-a4b-it-4bit",
     "generated_output": true,
     "output_was_coherent": true,
     "error_msg": "",
-    "peak_mem_bytes": 23507481730,
-    "peak_mem_gb": 21.893,
+    "peak_mem_bytes": 23245223902,
+    "peak_mem_gb": 21.649,
     "output": "<|channel>thought\n*   Topic: Why Vulkan acceleration is useful.\n    *   Constraint: One concise sentence.\n\n    *   Low-level API.\n    *   Reduced CPU overhead.\n    *   Better multi-threading/parallelism.\n    *   Direct hardware access.\n    *"
   },
   {
@@ -67,8 +67,8 @@
     "generated_output": true,
     "output_was_coherent": true,
     "error_msg": "",
-    "peak_mem_bytes": 36948374626,
-    "peak_mem_gb": 34.411,
+    "peak_mem_bytes": 36957990858,
+    "peak_mem_gb": 34.42,
     "output": "Here's a thinking process:\n\n1.  **Analyze User Input:**\n   - **Topic:** Vulkan acceleration\n   - **Requirement:** Write one concise sentence about why it's useful\n   - **Key constraints:** One sentence, concise, explains usefulness\n\n2.  **Understand Vulkan Acceleration:**"
   },
   {
@@ -85,8 +85,8 @@
     "generated_output": true,
     "output_was_coherent": true,
     "error_msg": "",
-    "peak_mem_bytes": 28868285290,
-    "peak_mem_gb": 26.886,
+    "peak_mem_bytes": 28852871100,
+    "peak_mem_gb": 26.871,
     "output": "Here's a thinking process:\n\n1.  **Analyze User Input:**\n   - **Topic:** Vulkan acceleration\n   - **Requirement:** One concise sentence\n   - **Focus:** Why it's useful\n\n2.  **Identify Key Concepts of Vulkan:**\n   - Low-level graphics/compute API"
   }
 ]
