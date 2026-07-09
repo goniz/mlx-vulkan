@@ -24,9 +24,9 @@ Benchmark data is stored in `results.csv`. Graphs are regenerated from that file
 
 | Model | Bits | Prompt TPS | Generation TPS | Peak memory (GB) | mlx-vulkan | mlx | Run |
 | --- | --- | ---: | ---: | ---: | --- | --- | --- |
-| mlx-community/Qwen3-0.6B-8bit | 8bit | 1493.524 | 89.920 | 1.544 | 61e55af | d2f75a1 | [run](https://github.com/goniz/mlx-vulkan/actions/runs/28850130432) |
-| mlx-community/Qwen3-0.6B-bf16 | bf16 | 2833.533 | 66.528 | 2.102 | 61e55af | d2f75a1 | [run](https://github.com/goniz/mlx-vulkan/actions/runs/28850130432) |
-| mlx-community/Qwen3.6-35B-A3B-8bit | 8bit | 125.717 | 21.956 | 39.235 | 61e55af | d2f75a1 | [run](https://github.com/goniz/mlx-vulkan/actions/runs/28850130432) |
+| mlx-community/Qwen3-0.6B-8bit | 8bit | 1493.076 | 90.933 | 1.547 | 8cb6101 | c7c199f | [run](https://github.com/goniz/mlx-vulkan/actions/runs/29016445983) |
+| mlx-community/Qwen3-0.6B-bf16 | bf16 | 2825.530 | 66.992 | 2.099 | 8cb6101 | c7c199f | [run](https://github.com/goniz/mlx-vulkan/actions/runs/29016445983) |
+| mlx-community/Qwen3.6-35B-A3B-8bit | 8bit | 127.692 | 22.127 | 39.235 | 8cb6101 | c7c199f | [run](https://github.com/goniz/mlx-vulkan/actions/runs/29016445983) |
 
 ## Model Generation Report
 
@@ -36,11 +36,11 @@ Generation smoke tests run with `scripts/model_generation_report.py` through `./
 | --- | --- | --- | ---: | --- | --- |
 | mlx-community/Qwen3-0.6B-bf16 | pass | pass | 1.143 | <think> Okay, the user wants a concise sentence about why Vulkan acceleration is useful. Let... |  |
 | mlx-community/Qwen3-0.6B-8bit | pass | pass | 0.624 | <think> Okay, the user wants a concise sentence about why Vulkan acceleration is useful. Let... |  |
-| LiquidAI/LFM2.5-1.2B-Instruct-MLX-8bit | pass | pass | 1.184 | Vulkan acceleration enhances performance by enabling efficient parallel processing and reduci... |  |
-| mlx-community/Qwen3.5-2B-bf16 | pass | pass | 3.541 | Thinking Process: 1. **Analyze the Request:** * Task: Write one concise sentence. * Topic: Wh... |  |
+| LiquidAI/LFM2.5-1.2B-Instruct-MLX-8bit | pass | pass | 1.183 | Vulkan acceleration enhances performance by enabling efficient parallel processing and reduci... |  |
+| mlx-community/Qwen3.5-2B-bf16 | pass | pass | 3.54 | Thinking Process: 1. **Analyze the Request:** * Task: Write one concise sentence. * Topic: Wh... |  |
 | mlx-community/gemma-4-e2b-it-bf16 | pass | pass | 8.637 | <\|channel>thoughting process:1. **Analyze Request:** The user wants "one concise sentence" ex... |  |
 | mlx-community/gemma-4-e4b-it-4bit | pass | pass | 11.568 | <\|channel>thought 1. **Analyze the request:** The user wants *one concise sentence* explainin... |  |
 | mlx-community/gemma-4-26b-a4b-it-4bit | pass | pass | 21.649 | <\|channel>thought * Topic: Why Vulkan acceleration is useful. * Constraint: One concise sente... |  |
-| mlx-community/Qwen3.6-35B-A3B-8bit | pass | pass | 34.42 | Here's a thinking process: 1. **Analyze User Input:** - **Topic:** Vulkan acceleration - **Re... |  |
+| mlx-community/Qwen3.6-35B-A3B-8bit | pass | pass | 34.417 | Here's a thinking process: 1. **Analyze User Input:** - **Topic:** Vulkan acceleration - **Re... |  |
 | mlx-community/gpt-oss-20b-MXFP4-Q8 | pass | pass | 11.323 | <\|channel\|>analysis<\|message\|>We need to write one concise sentence about why Vulkan accelera... |  |
 | mlx-community/Qwen3.6-27B-8bit | pass | pass | 26.871 | Here's a thinking process: 1. **Analyze User Input:** - **Topic:** Vulkan acceleration - **Re... |  |
