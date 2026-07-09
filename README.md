@@ -36,9 +36,9 @@ CI benchmark history from AMD Radeon 8060S (Strix Halo). Detailed data is in `be
 
 | Model | Bits | Prompt TPS | Generation TPS | Peak memory (GB) | mlx-vulkan | mlx | Run |
 | --- | --- | ---: | ---: | ---: | --- | --- | --- |
-| mlx-community/Qwen3-0.6B-8bit | 8bit | 1493.076 | 90.933 | 1.547 | 8cb6101 | c7c199f | [run](https://github.com/goniz/mlx-vulkan/actions/runs/29016445983) |
-| mlx-community/Qwen3-0.6B-bf16 | bf16 | 2825.530 | 66.992 | 2.099 | 8cb6101 | c7c199f | [run](https://github.com/goniz/mlx-vulkan/actions/runs/29016445983) |
-| mlx-community/Qwen3.6-35B-A3B-8bit | 8bit | 127.692 | 22.127 | 39.235 | 8cb6101 | c7c199f | [run](https://github.com/goniz/mlx-vulkan/actions/runs/29016445983) |
+| mlx-community/Qwen3-0.6B-8bit | 8bit | 1497.589 | 89.741 | 1.552 | 6c1d1aa | 4c86a83 | [run](https://github.com/goniz/mlx-vulkan/actions/runs/29018390272) |
+| mlx-community/Qwen3-0.6B-bf16 | bf16 | 2819.923 | 66.982 | 2.103 | 6c1d1aa | 4c86a83 | [run](https://github.com/goniz/mlx-vulkan/actions/runs/29018390272) |
+| mlx-community/Qwen3.6-35B-A3B-8bit | 8bit | 127.663 | 22.189 | 39.283 | 6c1d1aa | 4c86a83 | [run](https://github.com/goniz/mlx-vulkan/actions/runs/29018390272) |
 
 ### Model Generation Report
 
@@ -53,6 +53,6 @@ Serial generation smoke tests validate that each model produces coherent output 
 | mlx-community/gemma-4-e2b-it-bf16 | pass | pass | 8.637 | <\|channel>thoughting process:1. **Analyze Request:** The user wants "one concise sentence" ex... |  |
 | mlx-community/gemma-4-e4b-it-4bit | pass | pass | 11.568 | <\|channel>thought 1. **Analyze the request:** The user wants *one concise sentence* explainin... |  |
 | mlx-community/gemma-4-26b-a4b-it-4bit | pass | pass | 21.649 | <\|channel>thought * Topic: Why Vulkan acceleration is useful. * Constraint: One concise sente... |  |
-| mlx-community/Qwen3.6-35B-A3B-8bit | pass | pass | 34.417 | Here's a thinking process: 1. **Analyze User Input:** - **Topic:** Vulkan acceleration - **Re... |  |
+| mlx-community/Qwen3.6-35B-A3B-8bit | pass | pass | 34.416 | Here's a thinking process: 1. **Analyze User Input:** - **Topic:** Vulkan acceleration - **Re... |  |
 | mlx-community/gpt-oss-20b-MXFP4-Q8 | pass | pass | 11.323 | <\|channel\|>analysis<\|message\|>We need to write one concise sentence about why Vulkan accelera... |  |
 | mlx-community/Qwen3.6-27B-8bit | pass | pass | 26.871 | Here's a thinking process: 1. **Analyze User Input:** - **Topic:** Vulkan acceleration - **Re... |  |
