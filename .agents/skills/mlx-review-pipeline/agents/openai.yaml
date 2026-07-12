@@ -1,0 +1,4 @@
+interface:
+  display_name: "MLX Vulkan Pipeline Review"
+  short_description: "Review Vulkan code for async pipeline regressions"
+  default_prompt: "Use $mlx-review-pipeline to review this target for async pipeline and inference performance regressions."

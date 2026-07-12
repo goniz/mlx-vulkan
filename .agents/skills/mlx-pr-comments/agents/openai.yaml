@@ -1,0 +1,4 @@
+interface:
+  display_name: "MLX PR Comments"
+  short_description: "Address unresolved MLX PR review comments"
+  default_prompt: "Use $mlx-pr-comments to resolve or address all outstanding MLX PR review comments."

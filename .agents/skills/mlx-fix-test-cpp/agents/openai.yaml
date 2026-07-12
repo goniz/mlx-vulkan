@@ -1,0 +1,4 @@
+interface:
+  display_name: "MLX Fix C++ Test"
+  short_description: "Fix one failing Vulkan C++ test"
+  default_prompt: "Use $mlx-fix-test-cpp to repair exactly one failing Vulkan C++ test."

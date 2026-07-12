@@ -1,0 +1,4 @@
+interface:
+  display_name: "MLX Create PR"
+  short_description: "Commit, benchmark, and open an MLX pull request"
+  default_prompt: "Use $mlx-create-pr to commit, benchmark, and open a PR for this MLX Vulkan change."

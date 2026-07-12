@@ -1,0 +1,4 @@
+interface:
+  display_name: "MLX Submodule Commit"
+  short_description: "Commit only MLX submodule changes"
+  default_prompt: "Use $mlx-commit to commit the intended changes in the MLX submodule only."

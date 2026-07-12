@@ -1,0 +1,4 @@
+interface:
+  display_name: "MLX Address Issue"
+  short_description: "Investigate and address an MLX Vulkan issue"
+  default_prompt: "Use $mlx-issue to investigate and address goniz/mlx-vulkan issue <number>."

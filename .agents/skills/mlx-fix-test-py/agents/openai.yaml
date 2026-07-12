@@ -1,0 +1,4 @@
+interface:
+  display_name: "MLX Fix Python Test"
+  short_description: "Fix one failing Vulkan Python test"
+  default_prompt: "Use $mlx-fix-test-py to repair exactly one failing Vulkan Python test."

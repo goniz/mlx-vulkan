@@ -1,0 +1,4 @@
+interface:
+  display_name: "MLX Review"
+  short_description: "Review changes in the MLX submodule"
+  default_prompt: "Use $mlx-review to review the current uncommitted MLX submodule changes."

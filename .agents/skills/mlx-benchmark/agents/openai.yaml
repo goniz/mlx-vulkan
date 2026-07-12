@@ -1,0 +1,4 @@
+interface:
+  display_name: "MLX Benchmark"
+  short_description: "Run MLX bf16 and 8-bit benchmarks"
+  default_prompt: "Use $mlx-benchmark to run bf16 and 8-bit benchmarks and compare them with the README baseline."
