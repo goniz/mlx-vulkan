@@ -1,0 +1,4 @@
+interface:
+  display_name: "MLX Vulkan Review & Fix"
+  short_description: "Review, fix, validate, and benchmark Vulkan"
+  default_prompt: "Use $mlx-vulkan-review-fix to review the Vulkan backend, propose one major fix, then validate it after approval."
