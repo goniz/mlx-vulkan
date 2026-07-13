@@ -16,80 +16,82 @@
 <line x1="82" y1="54" x2="82" y2="326" stroke="#475569"/>
 <line x1="82" y1="326" x2="670" y2="326" stroke="#475569"/>
 <text x="82.0" y="386" text-anchor="end" transform="rotate(-32 82.0 386)" font-family="Inter,Segoe UI,sans-serif" font-size="12" fill="#94a3b8">2026-05-18 08:58</text>
-<text x="195.8" y="386" text-anchor="end" transform="rotate(-32 195.8 386)" font-family="Inter,Segoe UI,sans-serif" font-size="12" fill="#94a3b8">2026-05-20 10:17</text>
-<text x="309.6" y="386" text-anchor="end" transform="rotate(-32 309.6 386)" font-family="Inter,Segoe UI,sans-serif" font-size="12" fill="#94a3b8">2026-05-24 20:21</text>
-<text x="423.4" y="386" text-anchor="end" transform="rotate(-32 423.4 386)" font-family="Inter,Segoe UI,sans-serif" font-size="12" fill="#94a3b8">2026-05-28 14:42</text>
-<text x="537.2" y="386" text-anchor="end" transform="rotate(-32 537.2 386)" font-family="Inter,Segoe UI,sans-serif" font-size="12" fill="#94a3b8">2026-06-18 15:23</text>
-<text x="651.0" y="386" text-anchor="end" transform="rotate(-32 651.0 386)" font-family="Inter,Segoe UI,sans-serif" font-size="12" fill="#94a3b8">2026-07-09 11:58</text>
-<text x="670.0" y="386" text-anchor="end" transform="rotate(-32 670.0 386)" font-family="Inter,Segoe UI,sans-serif" font-size="12" fill="#94a3b8">2026-07-09 12:42</text>
-<polyline points="82.0,214.2 101.0,213.6 119.9,215.5 138.9,214.3 157.9,213.1 176.8,218.5 195.8,214.6 214.8,214.2 233.7,215.3 252.7,213.9 271.7,214.7 290.6,213.3 309.6,213.9 328.6,213.2 347.5,213.4 366.5,215.5 385.5,213.0 404.5,213.2 423.4,212.6 442.4,212.6 461.4,214.1 480.3,211.9 499.3,210.6 518.3,200.6 537.2,201.7 556.2,202.3 575.2,201.2 594.1,199.3 613.1,199.4 632.1,199.3 651.0,199.3 670.0,198.9" fill="none" stroke="#60a5fa" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="192.2" y="386" text-anchor="end" transform="rotate(-32 192.2 386)" font-family="Inter,Segoe UI,sans-serif" font-size="12" fill="#94a3b8">2026-05-20 10:17</text>
+<text x="302.5" y="386" text-anchor="end" transform="rotate(-32 302.5 386)" font-family="Inter,Segoe UI,sans-serif" font-size="12" fill="#94a3b8">2026-05-24 20:21</text>
+<text x="412.8" y="386" text-anchor="end" transform="rotate(-32 412.8 386)" font-family="Inter,Segoe UI,sans-serif" font-size="12" fill="#94a3b8">2026-05-28 14:42</text>
+<text x="523.0" y="386" text-anchor="end" transform="rotate(-32 523.0 386)" font-family="Inter,Segoe UI,sans-serif" font-size="12" fill="#94a3b8">2026-06-18 15:23</text>
+<text x="633.2" y="386" text-anchor="end" transform="rotate(-32 633.2 386)" font-family="Inter,Segoe UI,sans-serif" font-size="12" fill="#94a3b8">2026-07-09 11:58</text>
+<text x="670.0" y="386" text-anchor="end" transform="rotate(-32 670.0 386)" font-family="Inter,Segoe UI,sans-serif" font-size="12" fill="#94a3b8">2026-07-13 20:09</text>
+<polyline points="82.0,214.2 100.4,213.6 118.8,215.5 137.1,214.3 155.5,213.1 173.9,218.5 192.2,214.6 210.6,214.2 229.0,215.3 247.4,213.9 265.8,214.7 284.1,213.3 302.5,213.9 320.9,213.2 339.2,213.4 357.6,215.5 376.0,213.0 394.4,213.2 412.8,212.6 431.1,212.6 449.5,214.1 467.9,211.9 486.2,210.6 504.6,200.6 523.0,201.7 541.4,202.3 559.8,201.2 578.1,199.3 596.5,199.4 614.9,199.3 633.2,199.3 651.6,198.9 670.0,89.4" fill="none" stroke="#60a5fa" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
 <circle cx="82.0" cy="214.2" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1317.353</title></circle>
-<circle cx="101.0" cy="213.6" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1324.214</title></circle>
-<circle cx="119.9" cy="215.5" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1302.198</title></circle>
-<circle cx="138.9" cy="214.3" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1316.035</title></circle>
-<circle cx="157.9" cy="213.1" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1330.239</title></circle>
-<circle cx="176.8" cy="218.5" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1266.470</title></circle>
-<circle cx="195.8" cy="214.6" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1313.222</title></circle>
-<circle cx="214.8" cy="214.2" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1317.869</title></circle>
-<circle cx="233.7" cy="215.3" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1304.978</title></circle>
-<circle cx="252.7" cy="213.9" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1320.984</title></circle>
-<circle cx="271.7" cy="214.7" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1311.879</title></circle>
-<circle cx="290.6" cy="213.3" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1328.602</title></circle>
-<circle cx="309.6" cy="213.9" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1320.912</title></circle>
-<circle cx="328.6" cy="213.2" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1329.371</title></circle>
-<circle cx="347.5" cy="213.4" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1326.742</title></circle>
-<circle cx="366.5" cy="215.5" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1302.833</title></circle>
-<circle cx="385.5" cy="213.0" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1331.303</title></circle>
-<circle cx="404.5" cy="213.2" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1329.738</title></circle>
-<circle cx="423.4" cy="212.6" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1336.072</title></circle>
-<circle cx="442.4" cy="212.6" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1336.223</title></circle>
-<circle cx="461.4" cy="214.1" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1319.221</title></circle>
-<circle cx="480.3" cy="211.9" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1344.868</title></circle>
-<circle cx="499.3" cy="210.6" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1360.581</title></circle>
-<circle cx="518.3" cy="200.6" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1477.926</title></circle>
-<circle cx="537.2" cy="201.7" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1464.916</title></circle>
-<circle cx="556.2" cy="202.3" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1458.232</title></circle>
-<circle cx="575.2" cy="201.2" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1470.973</title></circle>
-<circle cx="594.1" cy="199.3" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1493.533</title></circle>
-<circle cx="613.1" cy="199.4" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1492.104</title></circle>
-<circle cx="632.1" cy="199.3" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1493.524</title></circle>
-<circle cx="651.0" cy="199.3" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1493.076</title></circle>
-<circle cx="670.0" cy="198.9" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1497.589</title></circle>
+<circle cx="100.4" cy="213.6" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1324.214</title></circle>
+<circle cx="118.8" cy="215.5" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1302.198</title></circle>
+<circle cx="137.1" cy="214.3" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1316.035</title></circle>
+<circle cx="155.5" cy="213.1" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1330.239</title></circle>
+<circle cx="173.9" cy="218.5" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1266.470</title></circle>
+<circle cx="192.2" cy="214.6" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1313.222</title></circle>
+<circle cx="210.6" cy="214.2" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1317.869</title></circle>
+<circle cx="229.0" cy="215.3" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1304.978</title></circle>
+<circle cx="247.4" cy="213.9" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1320.984</title></circle>
+<circle cx="265.8" cy="214.7" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1311.879</title></circle>
+<circle cx="284.1" cy="213.3" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1328.602</title></circle>
+<circle cx="302.5" cy="213.9" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1320.912</title></circle>
+<circle cx="320.9" cy="213.2" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1329.371</title></circle>
+<circle cx="339.2" cy="213.4" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1326.742</title></circle>
+<circle cx="357.6" cy="215.5" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1302.833</title></circle>
+<circle cx="376.0" cy="213.0" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1331.303</title></circle>
+<circle cx="394.4" cy="213.2" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1329.738</title></circle>
+<circle cx="412.8" cy="212.6" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1336.072</title></circle>
+<circle cx="431.1" cy="212.6" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1336.223</title></circle>
+<circle cx="449.5" cy="214.1" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1319.221</title></circle>
+<circle cx="467.9" cy="211.9" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1344.868</title></circle>
+<circle cx="486.2" cy="210.6" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1360.581</title></circle>
+<circle cx="504.6" cy="200.6" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1477.926</title></circle>
+<circle cx="523.0" cy="201.7" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1464.916</title></circle>
+<circle cx="541.4" cy="202.3" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1458.232</title></circle>
+<circle cx="559.8" cy="201.2" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1470.973</title></circle>
+<circle cx="578.1" cy="199.3" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1493.533</title></circle>
+<circle cx="596.5" cy="199.4" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1492.104</title></circle>
+<circle cx="614.9" cy="199.3" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1493.524</title></circle>
+<circle cx="633.2" cy="199.3" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1493.076</title></circle>
+<circle cx="651.6" cy="198.9" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 1497.589</title></circle>
+<circle cx="670.0" cy="89.4" r="4" fill="#60a5fa" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-8bit: 2788.160</title></circle>
 <circle cx="702" cy="76" r="5" fill="#60a5fa"/>
 <text x="716" y="80" font-family="Inter,Segoe UI,sans-serif" font-size="13" fill="#cbd5e1">Qwen3-0.6B-8bit</text>
-<polyline points="82.0,131.2 101.0,130.7 119.9,132.4 138.9,133.9 157.9,127.7 176.8,130.9 195.8,133.4 214.8,131.8 233.7,134.4 252.7,132.0 271.7,133.9 290.6,129.5 309.6,131.4 328.6,127.8 347.5,126.8 366.5,127.9 385.5,127.2 404.5,128.1 423.4,126.6 442.4,127.0 461.4,123.0 480.3,128.1 499.3,121.5 518.3,83.3 537.2,83.3 556.2,83.1 575.2,86.9 594.1,84.9 613.1,87.4 632.1,85.6 651.0,86.3 670.0,86.7" fill="none" stroke="#f97316" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="82.0,131.2 100.4,130.7 118.8,132.4 137.1,133.9 155.5,127.7 173.9,130.9 192.2,133.4 210.6,131.8 229.0,134.4 247.4,132.0 265.8,133.9 284.1,129.5 302.5,131.4 320.9,127.8 339.2,126.8 357.6,127.9 376.0,127.2 394.4,128.1 412.8,126.6 431.1,127.0 449.5,123.0 467.9,128.1 486.2,121.5 504.6,83.3 523.0,83.3 541.4,83.1 559.8,86.9 578.1,84.9 596.5,87.4 614.9,85.6 633.2,86.3 651.6,86.7 670.0,85.0" fill="none" stroke="#f97316" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
 <circle cx="82.0" cy="131.2" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2295.900</title></circle>
-<circle cx="101.0" cy="130.7" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2302.213</title></circle>
-<circle cx="119.9" cy="132.4" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2282.178</title></circle>
-<circle cx="138.9" cy="133.9" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2263.796</title></circle>
-<circle cx="157.9" cy="127.7" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2337.462</title></circle>
-<circle cx="176.8" cy="130.9" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2300.015</title></circle>
-<circle cx="195.8" cy="133.4" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2270.406</title></circle>
-<circle cx="214.8" cy="131.8" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2289.089</title></circle>
-<circle cx="233.7" cy="134.4" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2257.811</title></circle>
-<circle cx="252.7" cy="132.0" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2286.532</title></circle>
-<circle cx="271.7" cy="133.9" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2264.269</title></circle>
-<circle cx="290.6" cy="129.5" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2315.715</title></circle>
-<circle cx="309.6" cy="131.4" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2293.349</title></circle>
-<circle cx="328.6" cy="127.8" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2335.527</title></circle>
-<circle cx="347.5" cy="126.8" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2348.431</title></circle>
-<circle cx="366.5" cy="127.9" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2334.922</title></circle>
-<circle cx="385.5" cy="127.2" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2343.234</title></circle>
-<circle cx="404.5" cy="128.1" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2332.092</title></circle>
-<circle cx="423.4" cy="126.6" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2349.782</title></circle>
-<circle cx="442.4" cy="127.0" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2346.036</title></circle>
-<circle cx="461.4" cy="123.0" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2392.984</title></circle>
-<circle cx="480.3" cy="128.1" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2333.071</title></circle>
-<circle cx="499.3" cy="121.5" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2410.127</title></circle>
-<circle cx="518.3" cy="83.3" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2860.579</title></circle>
-<circle cx="537.2" cy="83.3" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2860.080</title></circle>
-<circle cx="556.2" cy="83.1" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2862.407</title></circle>
-<circle cx="575.2" cy="86.9" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2818.647</title></circle>
-<circle cx="594.1" cy="84.9" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2841.434</title></circle>
-<circle cx="613.1" cy="87.4" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2812.254</title></circle>
-<circle cx="632.1" cy="85.6" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2833.533</title></circle>
-<circle cx="651.0" cy="86.3" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2825.530</title></circle>
-<circle cx="670.0" cy="86.7" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2819.923</title></circle>
+<circle cx="100.4" cy="130.7" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2302.213</title></circle>
+<circle cx="118.8" cy="132.4" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2282.178</title></circle>
+<circle cx="137.1" cy="133.9" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2263.796</title></circle>
+<circle cx="155.5" cy="127.7" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2337.462</title></circle>
+<circle cx="173.9" cy="130.9" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2300.015</title></circle>
+<circle cx="192.2" cy="133.4" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2270.406</title></circle>
+<circle cx="210.6" cy="131.8" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2289.089</title></circle>
+<circle cx="229.0" cy="134.4" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2257.811</title></circle>
+<circle cx="247.4" cy="132.0" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2286.532</title></circle>
+<circle cx="265.8" cy="133.9" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2264.269</title></circle>
+<circle cx="284.1" cy="129.5" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2315.715</title></circle>
+<circle cx="302.5" cy="131.4" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2293.349</title></circle>
+<circle cx="320.9" cy="127.8" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2335.527</title></circle>
+<circle cx="339.2" cy="126.8" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2348.431</title></circle>
+<circle cx="357.6" cy="127.9" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2334.922</title></circle>
+<circle cx="376.0" cy="127.2" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2343.234</title></circle>
+<circle cx="394.4" cy="128.1" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2332.092</title></circle>
+<circle cx="412.8" cy="126.6" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2349.782</title></circle>
+<circle cx="431.1" cy="127.0" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2346.036</title></circle>
+<circle cx="449.5" cy="123.0" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2392.984</title></circle>
+<circle cx="467.9" cy="128.1" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2333.071</title></circle>
+<circle cx="486.2" cy="121.5" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2410.127</title></circle>
+<circle cx="504.6" cy="83.3" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2860.579</title></circle>
+<circle cx="523.0" cy="83.3" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2860.080</title></circle>
+<circle cx="541.4" cy="83.1" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2862.407</title></circle>
+<circle cx="559.8" cy="86.9" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2818.647</title></circle>
+<circle cx="578.1" cy="84.9" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2841.434</title></circle>
+<circle cx="596.5" cy="87.4" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2812.254</title></circle>
+<circle cx="614.9" cy="85.6" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2833.533</title></circle>
+<circle cx="633.2" cy="86.3" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2825.530</title></circle>
+<circle cx="651.6" cy="86.7" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2819.923</title></circle>
+<circle cx="670.0" cy="85.0" r="4" fill="#f97316" stroke="#0f172a" stroke-width="2"><title>Qwen3-0.6B-bf16: 2839.983</title></circle>
 <circle cx="702" cy="100" r="5" fill="#f97316"/>
 <text x="716" y="104" font-family="Inter,Segoe UI,sans-serif" font-size="13" fill="#cbd5e1">Qwen3-0.6B-bf16</text>
 </svg>
