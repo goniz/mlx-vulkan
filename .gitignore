@@ -50,3 +50,5 @@ virtual-env/
 __pycache__/
 *.py[cod]
 *$py.class
+
+.opencode/package-lock.json
