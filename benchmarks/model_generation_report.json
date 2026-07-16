@@ -4,7 +4,7 @@
     "generated_output": true,
     "output_was_coherent": true,
     "error_msg": "",
-    "peak_mem_bytes": 1227592880,
+    "peak_mem_bytes": 1227199716,
     "peak_mem_gb": 1.143,
     "output": "<think>\nOkay, the user wants a concise sentence about why Vulkan acceleration is useful. Let me start by recalling what Vulkan is. It's a graphics API developed by NVIDIA, right? It's used for rendering 3D graphics, especially in games and applications that require high performance.\n\nNow, the key points here are"
   },
@@ -31,8 +31,8 @@
     "generated_output": true,
     "output_was_coherent": true,
     "error_msg": "",
-    "peak_mem_bytes": 3801568028,
-    "peak_mem_gb": 3.54,
+    "peak_mem_bytes": 3801871168,
+    "peak_mem_gb": 3.541,
     "output": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Task: Write one concise sentence.\n    *   Topic: Why Vulkan acceleration is useful.\n    *   Constraint: Concise (one sentence).\n\n2.  **Identify Key Concepts of Vulkan:**\n    *"
   },
   {
@@ -40,7 +40,7 @@
     "generated_output": true,
     "output_was_coherent": true,
     "error_msg": "",
-    "peak_mem_bytes": 9275806172,
+    "peak_mem_bytes": 9276110256,
     "peak_mem_gb": 8.639,
     "output": "<|channel>thoughting process:1.  **Analyze Request:** The user wants \"one concise sentence\" explaining about the usefulness of \"Vulkan acceleration.\"\n\n2.  **Identify Core Concept (Vulkan Acceleration):** What is Vulkan acceleration? It's a technique (often involving Vul/Vulkan/Wave"
   },
@@ -49,17 +49,17 @@
     "generated_output": true,
     "output_was_coherent": true,
     "error_msg": "",
-    "peak_mem_bytes": 12441443670,
-    "peak_mem_gb": 11.587,
-    "output": "<|channel>thought\n1.  **Analyze the request:** The user wants *one concise sentence* explaining the usefulness of Vulkan acceleration.\n2.  **Identify the core function of Vulkan:** Vulkan is a modern, low-overhead, high-performance graphics and compute API. It allows developers to efficiently utilize"
+    "peak_mem_bytes": 4260315812,
+    "peak_mem_gb": 3.968,
+    "output": "<|channel>thought\n1.  **Analyze the request:** The user wants *one concise sentence* explaining the usefulness of Vulkan acceleration.\n2.  **Identify the core function of Vulkan:** Vulkan is a modern, low-overhead, high-performance graphics and compute API. Its primary benefit is giving developers"
   },
   {
     "model": "mlx-community/gemma-4-26b-a4b-it-4bit",
     "generated_output": true,
     "output_was_coherent": true,
     "error_msg": "",
-    "peak_mem_bytes": 23248424982,
-    "peak_mem_gb": 21.652,
+    "peak_mem_bytes": 14289846808,
+    "peak_mem_gb": 13.308,
     "output": "<|channel>thought\n*   Topic: Why Vulkan acceleration is useful.\n    *   Constraint: One concise sentence.\n\n    *   Low-level API.\n    *   Reduced CPU overhead.\n    *   Better multi-threading/parallelism.\n    *   Direct hardware access.\n    *"
   },
   {
@@ -67,8 +67,8 @@
     "generated_output": true,
     "output_was_coherent": true,
     "error_msg": "",
-    "peak_mem_bytes": 36952416274,
-    "peak_mem_gb": 34.415,
+    "peak_mem_bytes": 36947418244,
+    "peak_mem_gb": 34.41,
     "output": "Here's a thinking process:\n\n1.  **Analyze User Input:**\n   - **Topic:** Vulkan acceleration\n   - **Requirement:** Write one concise sentence about why it's useful\n   - **Key constraints:** One sentence, concise, explains usefulness\n\n2.  **Understand Vulkan Acceleration:**"
   },
   {
@@ -78,15 +78,15 @@
     "error_msg": "",
     "peak_mem_bytes": 12279795464,
     "peak_mem_gb": 11.436,
-    "output": "<|channel|>analysis<|message|>We need to write one concise sentence about why Vulkan acceleration is useful. So something like: \"Vulkan acceleration enables high-performance, low-overhead graphics rendering, allowing developers to achieve smoother visuals and better resource utilization on modern GPUs.\" That is concise. Maybe: \"Vulkan acceleration provides low-level, high"
+    "output": "<|channel|>analysis<|message|>We need to write one concise sentence about why Vulkan acceleration is useful. So something like: \"Vulkan acceleration enables high-performance, low-overhead graphics rendering, improving frame rates and reducing CPU usage.\" That is concise. Or \"Vulkan acceleration allows developers to harness GPU power efficiently, boosting performance and reducing"
   },
   {
     "model": "mlx-community/Qwen3.6-27B-8bit",
     "generated_output": true,
     "output_was_coherent": true,
     "error_msg": "",
-    "peak_mem_bytes": 28862435198,
-    "peak_mem_gb": 26.88,
+    "peak_mem_bytes": 28852616060,
+    "peak_mem_gb": 26.871,
     "output": "Here's a thinking process:\n\n1.  **Analyze User Input:**\n   - **Topic:** Vulkan acceleration\n   - **Requirement:** One concise sentence\n   - **Focus:** Why it's useful\n\n2.  **Identify Key Concepts of Vulkan:**\n   - Low-level graphics/compute API"
   }
 ]
