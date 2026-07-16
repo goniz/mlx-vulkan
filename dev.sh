@@ -61,24 +61,13 @@ Examples:
   ./dev.sh generate --model mlx-community/Qwen3-0.6B-8bit
   ./dev.sh generate --vlm --model mlx-community/Qwen2.5-VL-7B-Instruct-8bit
   ./dev.sh model-report --models mlx-community/Qwen3-0.6B-bf16 --max-tokens 16
+
+GPU lock (benchmark/generate/profile/model-report/update-benchmark):
+  Serializes GPU use across host agents and CI via flock on /tmp/mlx-gpu/gpu.lock.
+  MLX_GPU_LOCK=none            Disable locking
+  MLX_GPU_LOCK_DIR=/tmp/mlx-gpu  Override lock directory
+  MLX_GPU_LOCK_TIMEOUT=N       Fail after N seconds waiting for the lock
 EOF
-}
-
-configure_darwin_vulkan_icd() {
-    if [[ "$OSTYPE" != "darwin"* ]]; then
-        return
-    fi
-
-    local moltenvk_icd="/opt/homebrew/etc/vulkan/icd.d/MoltenVK_icd.json"
-    if [ ! -f "$moltenvk_icd" ]; then
-        return
-    fi
-
-    # Homebrew's vulkan-tools can leave the mock ICD in the environment. That
-    # lets CMake find Vulkan but creates a mock device which fails during teardown.
-    if [ -z "${VK_ICD_FILENAMES:-}" ] || [[ "${VK_ICD_FILENAMES}" == *"mock_icd"* ]]; then
-        export VK_ICD_FILENAMES="$moltenvk_icd"
-    fi
 }
 
 configure_darwin_vulkan_icd() {
@@ -280,6 +269,80 @@ disable_mpi_for_single_process_benchmark() {
     export MLX_MPI_LIBNAME="${MLX_MPI_LIBNAME:-/dev/null}"
 }
 
+# Serialize GPU-heavy commands across host agents and CI containers that share
+# the same GPU. Lock path must be bind-mounted into the CI runner at the same
+# absolute path (see github-runner docker-compose.yml: /tmp/mlx-gpu).
+#
+# Env:
+#   MLX_GPU_LOCK_DIR     Lock directory (default: /tmp/mlx-gpu)
+#   MLX_GPU_LOCK         Lock file path (default: $MLX_GPU_LOCK_DIR/gpu.lock)
+#                        Set to "none" to disable locking.
+#   MLX_GPU_LOCK_TIMEOUT Optional flock wait timeout in seconds (fail if busy)
+with_gpu_lock() {
+    if [ "${MLX_GPU_LOCK:-}" = "none" ] || [ -n "${MLX_GPU_LOCK_HELD:-}" ]; then
+        "$@"
+        return $?
+    fi
+
+    if ! command -v flock >/dev/null 2>&1; then
+        echo "[gpu-lock] warning: flock not available; continuing without lock" >&2
+        "$@"
+        return $?
+    fi
+
+    local lock_dir="${MLX_GPU_LOCK_DIR:-/tmp/mlx-gpu}"
+    local lock_file="${MLX_GPU_LOCK:-${lock_dir}/gpu.lock}"
+    local holder_file="${lock_dir}/holder.txt"
+    local timeout="${MLX_GPU_LOCK_TIMEOUT:-}"
+
+    mkdir -p "$lock_dir"
+    chmod 1777 "$lock_dir" 2>/dev/null || true
+    if ! : >> "$lock_file"; then
+        echo "[gpu-lock] error: cannot write lock file $lock_file" >&2
+        exit 1
+    fi
+
+    (
+        export MLX_GPU_LOCK_HELD=1
+
+        if [ -n "$timeout" ]; then
+            if ! flock -w "$timeout" 200; then
+                echo "[gpu-lock] timed out after ${timeout}s waiting for $lock_file" >&2
+                if [ -f "$holder_file" ]; then
+                    echo "[gpu-lock] current holder:" >&2
+                    cat "$holder_file" >&2 || true
+                fi
+                exit 1
+            fi
+        elif ! flock -n 200; then
+            echo "[gpu-lock] waiting for $lock_file ..." >&2
+            if [ -f "$holder_file" ]; then
+                echo "[gpu-lock] current holder:" >&2
+                cat "$holder_file" >&2 || true
+            fi
+            flock 200
+        fi
+
+        cleanup_holder() {
+            rm -f "$holder_file"
+        }
+        trap cleanup_holder EXIT
+
+        {
+            echo "pid=$$"
+            echo "ppid=$PPID"
+            echo "user=${USER:-$(id -un 2>/dev/null || echo unknown)}"
+            echo "host=$(hostname 2>/dev/null || echo unknown)"
+            echo "cwd=$PWD"
+            echo "cmd=$*"
+            echo "started=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+        } > "$holder_file"
+
+        echo "[gpu-lock] acquired $lock_file" >&2
+        "$@"
+    ) 200>"$lock_file"
+}
+
 cmd_benchmark() {
     configure_darwin_vulkan_icd
 
@@ -457,22 +520,22 @@ case "$COMMAND" in
         cmd_run "$@"
         ;;
     benchmark)
-        cmd_benchmark "$@"
+        with_gpu_lock cmd_benchmark "$@"
         ;;
     update-benchmark)
-        cmd_update_benchmark "$@"
+        with_gpu_lock cmd_update_benchmark "$@"
         ;;
     pr-comments)
         cmd_pr_comments "$@"
         ;;
     profile)
-        cmd_profile "${1:-}"
+        with_gpu_lock cmd_profile "${1:-}"
         ;;
     generate)
-        cmd_generate "$@"
+        with_gpu_lock cmd_generate "$@"
         ;;
     model-report)
-        cmd_model_report "$@"
+        with_gpu_lock cmd_model_report "$@"
         ;;
     help|--help|-h)
         show_help

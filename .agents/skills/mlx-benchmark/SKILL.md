@@ -10,7 +10,7 @@ Run benchmarks through `./dev.sh` only. Treat any user-supplied model or benchma
 1. Read `README.md` and identify the relevant current baseline numbers.
 2. Run `./dev.sh benchmark bf16`.
 3. After it completes, run `./dev.sh benchmark 8bit`.
-4. Never run benchmark commands concurrently or in parallel tool calls.
+4. Never run benchmark commands concurrently or in parallel tool calls. `./dev.sh benchmark` already serializes via `/tmp/mlx-gpu/gpu.lock` (shared with CI); still launch them one after another so waiters are ordered intentionally.
 5. Compare each result with the comparable README baseline. State the absolute and percentage difference when the metrics permit it; otherwise explain the direct comparison.
 
 Report the commands run, results for each precision, the baseline used, and the performance difference. Do not change code unless explicitly asked.
