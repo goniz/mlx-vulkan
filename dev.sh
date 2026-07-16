@@ -273,6 +273,16 @@ disable_mpi_for_single_process_benchmark() {
 # the same GPU. Lock path must be bind-mounted into the CI runner at the same
 # absolute path (see github-runner docker-compose.yml: /tmp/mlx-gpu).
 #
+# Implementation notes:
+#   - Uses the bash flock idiom: open the lock file on FD 200 in a subshell
+#     (`) 200>"$lock_file"`), then `flock 200` to take an exclusive lock on that
+#     FD. 200 is an arbitrary high descriptor chosen to avoid clashing with
+#     stdin/stdout/stderr and common low FDs.
+#   - While holding the lock, writes $lock_dir/holder.txt so waiters can see who
+#     owns the GPU (pid, user, host, cwd, cmd, started UTC). Cleared on EXIT.
+#   - Sets MLX_GPU_LOCK_HELD=1 only after the flock is acquired so nested
+#     ./dev.sh GPU commands in child processes skip a second lock attempt.
+#
 # Env:
 #   MLX_GPU_LOCK_DIR     Lock directory (default: /tmp/mlx-gpu)
 #   MLX_GPU_LOCK         Lock file path (default: $MLX_GPU_LOCK_DIR/gpu.lock)
@@ -302,9 +312,8 @@ with_gpu_lock() {
         exit 1
     fi
 
+    # FD 200 is opened on $lock_file for the subshell via the redirection below.
     (
-        export MLX_GPU_LOCK_HELD=1
-
         if [ -n "$timeout" ]; then
             if ! flock -w "$timeout" 200; then
                 echo "[gpu-lock] timed out after ${timeout}s waiting for $lock_file" >&2
@@ -323,11 +332,15 @@ with_gpu_lock() {
             flock 200
         fi
 
+        # Mark held only after flock succeeds (re-entrancy for nested ./dev.sh).
+        export MLX_GPU_LOCK_HELD=1
+
         cleanup_holder() {
             rm -f "$holder_file"
         }
         trap cleanup_holder EXIT
 
+        # Observable owner metadata for waiters (see comment block above).
         {
             echo "pid=$$"
             echo "ppid=$PPID"
