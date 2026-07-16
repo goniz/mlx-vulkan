@@ -288,7 +288,10 @@ disable_mpi_for_single_process_benchmark() {
 #   MLX_GPU_LOCK         Lock file path (default: $MLX_GPU_LOCK_DIR/gpu.lock)
 #                        Set to "none" to disable locking.
 #   MLX_GPU_LOCK_TIMEOUT Optional flock wait timeout in seconds (fail if busy)
+#   MLX_GPU_LOCK_HELD    Internal: set after acquire; presence skips locking
+#                        (see early return at the top of this function).
 with_gpu_lock() {
+    # Skip if disabled, or if a parent already holds the lock (MLX_GPU_LOCK_HELD).
     if [ "${MLX_GPU_LOCK:-}" = "none" ] || [ -n "${MLX_GPU_LOCK_HELD:-}" ]; then
         "$@"
         return $?
@@ -332,7 +335,7 @@ with_gpu_lock() {
             flock 200
         fi
 
-        # Mark held only after flock succeeds (re-entrancy for nested ./dev.sh).
+        # Checked at the top of with_gpu_lock(); export so nested ./dev.sh sees it.
         export MLX_GPU_LOCK_HELD=1
 
         cleanup_holder() {
